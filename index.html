@@ -1,0 +1,2435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's Explore Addition and Subtraction</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Child-Friendly Rounded Google Font: Fredoka -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Phosphor Icons for playful, clear educational icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* Apply child-friendly typography across the entire site */
+        body {
+            font-family: 'Fredoka', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-color: #e0f4ff;
+            overflow-x: hidden;
+        }
+
+        /* Fixed full-viewport illustrated Sunny Hilltop Garden background layer */
+        .hilltop-garden-bg {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            user-select: none;
+            overflow: hidden;
+            background: linear-gradient(180deg, #cbeeff 0%, #e7f7ff 52%, #f4fbef 100%);
+        }
+
+        .hilltop-garden-svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Gentle ambient drift for clouds and sun rays */
+        @keyframes cloudDriftSlow {
+            0%, 100% { transform: translateX(0px); }
+            50% { transform: translateX(10px); }
+        }
+
+        @keyframes sunPulse {
+            0%, 100% { transform: scale(1); opacity: 0.85; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+
+        .garden-cloud-a {
+            animation: cloudDriftSlow 12s ease-in-out infinite;
+        }
+
+        .garden-cloud-b {
+            animation: cloudDriftSlow 16s ease-in-out infinite reverse;
+        }
+
+        .garden-sun-rays {
+            transform-origin: 1220px 115px;
+            animation: sunPulse 7s ease-in-out infinite;
+        }
+
+        /* Reset default list and button styles cleanly */
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        button {
+            appearance: none;
+            -webkit-appearance: none;
+            font-family: inherit;
+        }
+
+        /* Tactile bouncy toy-button feel for Year 1 learners */
+        .toy-btn {
+            transition: transform 0.14s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.14s ease, background-color 0.14s ease;
+            box-shadow: 0 3px 0 rgba(0, 0, 0, 0.13);
+        }
+
+        .toy-btn:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15);
+        }
+
+        .toy-btn:active:not(:disabled) {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.13);
+        }
+
+        /* Active navigation pill highlight without inflating button dimensions */
+        .nav-pill-active {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 0 rgba(0, 0, 0, 0.16);
+            ring: 2px solid rgba(255, 255, 255, 0.85);
+        }
+
+        /* Compact horizontally scrollable nav bar on smaller screens */
+        .compact-nav-scroll {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .compact-nav-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Shared typography step-up (~3px) across all activity instruction panels */
+        .activity-instruction-panel .instr-heading {
+            font-size: calc(0.875rem + 3px);
+            line-height: 1.3;
+        }
+
+        .activity-instruction-panel .instr-desc {
+            font-size: calc(0.75rem + 3px);
+            line-height: 1.45;
+        }
+
+        .activity-instruction-panel .instr-todo-title {
+            font-size: calc(0.6875rem + 3px);
+            line-height: 1.3;
+        }
+
+        .activity-instruction-panel .instr-todo-list {
+            font-size: calc(0.75rem + 3px);
+            line-height: 1.42;
+        }
+
+        @media (min-width: 640px) {
+            .activity-instruction-panel .instr-heading {
+                font-size: calc(1rem + 3px);
+            }
+
+            .activity-instruction-panel .instr-desc {
+                font-size: calc(0.875rem + 3px);
+            }
+
+            .activity-instruction-panel .instr-todo-list {
+                font-size: calc(0.8125rem + 3px);
+            }
+        }
+
+        /* Balanced responsive layout for activity instruction panels across portrait & landscape */
+        .activity-instruction-body {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.75rem 1rem;
+            align-items: center;
+        }
+
+        .activity-instruction-intro {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 0;
+        }
+
+        .activity-instruction-copy {
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        @media (min-width: 768px) {
+            .activity-instruction-body {
+                grid-template-columns: minmax(0, 1.35fr) minmax(250px, 0.95fr);
+                gap: 0.75rem 1.25rem;
+            }
+        }
+
+        /* Smooth fade-in when switching pages */
+        .page-section {
+            animation: fadeScaleIn 0.22s ease-out;
+        }
+
+        @keyframes fadeScaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.99);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Floating sound control button aligned cleanly on the far right without overlapping nav tabs */
+        .floating-sound-btn {
+            position: relative;
+            z-index: 60;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body class="relative flex flex-col justify-between min-h-screen text-slate-800 selection:bg-amber-200">
+
+    <!-- Pure CSS + Inline SVG Sunny Hilltop Garden Background (Behind all content) -->
+    <div class="hilltop-garden-bg" aria-hidden="true">
+        <svg class="hilltop-garden-svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <!-- Soft Pastel Sky & Sun Gradients -->
+                <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#bfe7ff" />
+                    <stop offset="55%" stop-color="#e5f6ff" />
+                    <stop offset="100%" stop-color="#f7fcf4" />
+                </linearGradient>
+                <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#fff3a1" stop-opacity="0.95" />
+                    <stop offset="55%" stop-color="#ffe066" stop-opacity="0.35" />
+                    <stop offset="100%" stop-color="#ffe066" stop-opacity="0" />
+                </radialGradient>
+                <linearGradient id="sunCoreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#fff08a" />
+                    <stop offset="100%" stop-color="#ffd147" />
+                </linearGradient>
+
+                <!-- Rolling Pastel Hill Gradients -->
+                <linearGradient id="backHillGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#c8efc6" />
+                    <stop offset="100%" stop-color="#a8dfa9" />
+                </linearGradient>
+                <linearGradient id="midHillGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#aee6b4" />
+                    <stop offset="100%" stop-color="#89d196" />
+                </linearGradient>
+                <linearGradient id="frontHillGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#9be09e" />
+                    <stop offset="100%" stop-color="#76c482" />
+                </linearGradient>
+
+                <!-- Reusable Flower & Grass Elements -->
+                <g id="daisyFlower">
+                    <ellipse cx="0" cy="-11" rx="4.5" ry="7.5" fill="#ffffff" />
+                    <ellipse cx="0" cy="11" rx="4.5" ry="7.5" fill="#ffffff" />
+                    <ellipse cx="-11" cy="0" rx="7.5" ry="4.5" fill="#ffffff" />
+                    <ellipse cx="11" cy="0" rx="7.5" ry="4.5" fill="#ffffff" />
+                    <ellipse cx="-7.8" cy="-7.8" rx="4.5" ry="7.2" transform="rotate(-45 -7.8 -7.8)" fill="#ffffff" />
+                    <ellipse cx="7.8" cy="-7.8" rx="4.5" ry="7.2" transform="rotate(45 7.8 -7.8)" fill="#ffffff" />
+                    <ellipse cx="-7.8" cy="7.8" rx="4.5" ry="7.2" transform="rotate(45 -7.8 7.8)" fill="#ffffff" />
+                    <ellipse cx="7.8" cy="7.8" rx="4.5" ry="7.2" transform="rotate(-45 7.8 7.8)" fill="#ffffff" />
+                    <circle cx="0" cy="0" r="5.5" fill="#ffd15c" />
+                </g>
+
+                <g id="pinkFlower">
+                    <circle cx="0" cy="-9" r="6" fill="#ffbdd3" />
+                    <circle cx="8.5" cy="-2.8" r="6" fill="#ffbdd3" />
+                    <circle cx="5.3" cy="7.3" r="6" fill="#ffbdd3" />
+                    <circle cx="-5.3" cy="7.3" r="6" fill="#ffbdd3" />
+                    <circle cx="-8.5" cy="-2.8" r="6" fill="#ffbdd3" />
+                    <circle cx="0" cy="0" r="5" fill="#ffe066" />
+                </g>
+
+                <g id="purpleFlower">
+                    <circle cx="0" cy="-9" r="6" fill="#d7beff" />
+                    <circle cx="8.5" cy="-2.8" r="6" fill="#d7beff" />
+                    <circle cx="5.3" cy="7.3" r="6" fill="#d7beff" />
+                    <circle cx="-5.3" cy="7.3" r="6" fill="#d7beff" />
+                    <circle cx="-8.5" cy="-2.8" r="6" fill="#d7beff" />
+                    <circle cx="0" cy="0" r="5" fill="#fff099" />
+                </g>
+
+                <g id="grassTuft">
+                    <path d="M-8 6 Q-10 -6 -15 -11 Q-6 -5 -4 6 Z" fill="#5fb36d" />
+                    <path d="M0 6 Q0 -9 0 -15 Q4 -7 3 6 Z" fill="#4da35c" />
+                    <path d="M7 6 Q10 -5 15 -10 Q11 -2 10 6 Z" fill="#68bf76" />
+                </g>
+
+                <g id="leafPair">
+                    <path d="M0 4 Q-10 -2 -14 3 Q-8 8 0 4 Z" fill="#6bc479" />
+                    <path d="M0 4 Q10 -2 14 3 Q8 8 0 4 Z" fill="#58b367" />
+                </g>
+
+                <!-- Shared Storybook White Bunny Mascot Symbol (Consistent design across all pages) -->
+                <g id="storybookBunnyMascot">
+                    <!-- Soft ground shadow -->
+                    <ellipse cx="105" cy="222" rx="56" ry="9" fill="#cbd5e1" opacity="0.55" />
+
+                    <!-- Fluffy White Tail -->
+                    <circle cx="54" cy="182" r="14" fill="#ffffff" stroke="#64748b" stroke-width="3" />
+
+                    <!-- Left & Right Bunny Feet -->
+                    <ellipse cx="82" cy="211" rx="19" ry="10" fill="#ffffff" stroke="#64748b" stroke-width="3" />
+                    <ellipse cx="126" cy="211" rx="19" ry="10" fill="#ffffff" stroke="#64748b" stroke-width="3" />
+
+                    <!-- Cozy Bunny Body -->
+                    <path d="M70 142 C64 172, 68 202, 104 202 C140 202, 144 172, 138 142 C132 124, 76 124, 70 142 Z" fill="#ffffff" stroke="#64748b" stroke-width="3" stroke-linejoin="round" />
+                    <!-- Pastel Bib / Belly Accent -->
+                    <ellipse cx="104" cy="172" rx="20" ry="23" fill="#fff1f5" />
+
+                    <!-- Long Ears (Left Upright, Right Gently Tilted) -->
+                    <g transform="translate(84, 72) rotate(-6)">
+                        <ellipse cx="0" cy="-34" rx="13" ry="38" fill="#ffffff" stroke="#64748b" stroke-width="3" />
+                        <ellipse cx="0" cy="-32" rx="6.5" ry="27" fill="#fbcfe8" />
+                    </g>
+                    <g transform="translate(122, 74) rotate(10)">
+                        <ellipse cx="0" cy="-33" rx="13" ry="37" fill="#ffffff" stroke="#64748b" stroke-width="3" />
+                        <ellipse cx="0" cy="-31" rx="6.5" ry="26" fill="#fbcfe8" />
+                    </g>
+
+                    <!-- Cute Bunny Head -->
+                    <ellipse cx="104" cy="108" rx="42" ry="36" fill="#ffffff" stroke="#64748b" stroke-width="3" />
+
+                    <!-- Friendly Simple Eyes -->
+                    <circle cx="88" cy="104" r="5" fill="#334155" />
+                    <circle cx="86.5" cy="102" r="1.8" fill="#ffffff" />
+                    <circle cx="120" cy="104" r="5" fill="#334155" />
+                    <circle cx="118.5" cy="102" r="1.8" fill="#ffffff" />
+
+                    <!-- Small Pink Cheeks -->
+                    <ellipse cx="77" cy="115" rx="8" ry="5" fill="#f9a8d4" opacity="0.8" />
+                    <ellipse cx="131" cy="115" rx="8" ry="5" fill="#f9a8d4" opacity="0.8" />
+
+                    <!-- Cute Little Nose & Cheerful Smile -->
+                    <polygon points="104,110 99,116 109,116" fill="#f472b6" />
+                    <path d="M95 121 Q100 128 104 121 Q108 128 113 121" fill="none" stroke="#334155" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
+
+                    <!-- Gentle Whiskers -->
+                    <line x1="63" y1="108" x2="75" y2="110" stroke="#94a3b8" stroke-width="2.2" stroke-linecap="round" />
+                    <line x1="63" y1="116" x2="75" y2="116" stroke="#94a3b8" stroke-width="2.2" stroke-linecap="round" />
+                    <line x1="133" y1="110" x2="145" y2="108" stroke="#94a3b8" stroke-width="2.2" stroke-linecap="round" />
+                    <line x1="133" y1="116" x2="145" y2="116" stroke="#94a3b8" stroke-width="2.2" stroke-linecap="round" />
+
+                    <!-- Left Arm -->
+                    <path d="M72 148 Q56 160 66 172 Q76 176 82 162" fill="#ffffff" stroke="#64748b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+
+                    <!-- Right Arm Holding Up a Colourful Star -->
+                    <path d="M136 146 Q156 138 164 122" fill="#ffffff" stroke="#64748b" stroke-width="3" stroke-linecap="round" />
+                    <g transform="translate(174, 102)">
+                        <polygon points="0,-24 7,-8 25,-6 11,6 15,24 0,15 -15,24 -11,6 -25,-6 -7,-8" fill="#fde047" stroke="#f59e0b" stroke-width="3" stroke-linejoin="round" />
+                        <circle cx="-4" cy="-2" r="2" fill="#f59e0b" />
+                        <circle cx="5" cy="-2" r="2" fill="#f59e0b" />
+                        <path d="M-3 4 Q0 8 3 4" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" />
+                    </g>
+                </g>
+            </defs>
+
+            <!-- 1. Soft Pastel Light-Blue Sky -->
+            <rect width="1440" height="900" fill="url(#skyGrad)" />
+
+            <!-- 3. Bright Cheerful Sun with Gentle Sun Rays in Upper Corner -->
+            <g class="garden-sun-rays">
+                <circle cx="1235" cy="115" r="145" fill="url(#sunGlow)" />
+                <g stroke="#ffe066" stroke-width="5" stroke-linecap="round" opacity="0.75">
+                    <line x1="1235" y1="22" x2="1235" y2="46" />
+                    <line x1="1235" y1="184" x2="1235" y2="208" />
+                    <line x1="1142" y1="115" x2="1166" y2="115" />
+                    <line x1="1304" y1="115" x2="1328" y2="115" />
+                    <line x1="1169" y1="49" x2="1186" y2="66" />
+                    <line x1="1284" y1="164" x2="1301" y2="181" />
+                    <line x1="1301" y1="49" x2="1284" y2="66" />
+                    <line x1="1186" y1="164" x2="1169" y2="181" />
+                </g>
+            </g>
+            <circle cx="1235" cy="115" r="52" fill="url(#sunCoreGrad)" stroke="#ffdf6b" stroke-width="4" />
+
+            <!-- 2. Fluffy White Clouds Scattered Across the Sky -->
+            <g class="garden-cloud-a" fill="#ffffff" opacity="0.92">
+                <!-- Left Cloud -->
+                <g transform="translate(150, 110)">
+                    <circle cx="0" cy="8" r="24" />
+                    <circle cx="24" cy="-2" r="30" />
+                    <circle cx="54" cy="4" r="25" />
+                    <circle cx="76" cy="12" r="19" />
+                    <rect x="-4" y="10" width="84" height="22" rx="11" />
+                </g>
+                <!-- Upper Center-Left Soft Cloud -->
+                <g transform="translate(560, 76)" opacity="0.78">
+                    <circle cx="0" cy="6" r="18" />
+                    <circle cx="20" cy="-2" r="23" />
+                    <circle cx="42" cy="5" r="18" />
+                    <rect x="-4" y="8" width="50" height="16" rx="8" />
+                </g>
+            </g>
+
+            <g class="garden-cloud-b" fill="#ffffff" opacity="0.9">
+                <!-- Right-Center Cloud -->
+                <g transform="translate(930, 145)">
+                    <circle cx="0" cy="8" r="21" />
+                    <circle cx="22" cy="-3" r="27" />
+                    <circle cx="48" cy="6" r="21" />
+                    <rect x="-4" y="9" width="56" height="19" rx="9.5" />
+                </g>
+            </g>
+
+            <!-- 4. Rolling Pastel Green Hills in the Background (kept low so center content is clear) -->
+            <path d="M0 640 Q320 535 690 615 T1440 580 L1440 900 L0 900 Z" fill="url(#backHillGrad)" />
+            <path d="M0 695 Q380 615 780 685 T1440 645 L1440 900 L0 900 Z" fill="url(#midHillGrad)" />
+            <path d="M0 755 Q420 705 840 750 T1440 725 L1440 900 L0 900 Z" fill="url(#frontHillGrad)" />
+
+            <!-- 5 & 6. Decorative Grass, Leaves & Flowers (Daisies, Pink, Purple) along Bottom and Sides -->
+            <!-- Left Side & Bottom-Left Cluster -->
+            <use href="#grassTuft" x="45" y="675" />
+            <use href="#leafPair" x="78" y="685" />
+            <use href="#pinkFlower" x="58" y="655" transform="scale(0.95)" />
+
+            <use href="#grassTuft" x="52" y="765" />
+            <use href="#daisyFlower" x="68" y="742" />
+            <use href="#purpleFlower" x="128" y="772" />
+            <use href="#leafPair" x="165" y="782" />
+
+            <use href="#grassTuft" x="95" y="852" />
+            <use href="#daisyFlower" x="155" y="838" />
+            <use href="#pinkFlower" x="235" y="855" />
+            <use href="#grassTuft" x="295" y="865" />
+            <use href="#purpleFlower" x="365" y="845" />
+            <use href="#leafPair" x="415" y="860" />
+
+            <!-- Bottom Center-Left to Center-Right Edge Accents -->
+            <use href="#daisyFlower" x="505" y="862" />
+            <use href="#grassTuft" x="565" y="872" />
+            <use href="#pinkFlower" x="720" y="864" />
+            <use href="#leafPair" x="785" y="870" />
+            <use href="#daisyFlower" x="935" y="858" />
+            <use href="#grassTuft" x="995" y="868" />
+
+            <!-- Bottom-Right & Right Side Cluster -->
+            <use href="#purpleFlower" x="1085" y="846" />
+            <use href="#leafPair" x="1135" y="862" />
+            <use href="#daisyFlower" x="1215" y="840" />
+            <use href="#grassTuft" x="1275" y="852" />
+            <use href="#pinkFlower" x="1355" y="828" />
+            <use href="#grassTuft" x="1395" y="845" />
+
+            <use href="#grassTuft" x="1388" y="748" />
+            <use href="#daisyFlower" x="1374" y="724" />
+            <use href="#purpleFlower" x="1312" y="758" />
+            <use href="#leafPair" x="1270" y="768" />
+
+            <use href="#grassTuft" x="1392" y="655" />
+            <use href="#pinkFlower" x="1376" y="632" />
+            <use href="#leafPair" x="1340" y="665" />
+        </svg>
+    </div>
+
+    <!-- Subtle Mathematical Edge Decorations (Non-intrusive around outer margins) -->
+    <div aria-hidden="true" class="math-accent hidden xl:flex flex-col gap-5 fixed left-3 top-28 text-orange-400/55 font-bold">
+        <span class="w-9 h-9 rounded-xl bg-orange-100/80 border border-orange-200/80 flex items-center justify-center text-xl shadow-sm">+</span>
+        <span class="w-9 h-9 rounded-full bg-purple-100/80 border border-purple-200/80 flex items-center justify-center text-base shadow-sm">7</span>
+        <span class="w-9 h-9 rounded-xl bg-amber-100/80 border border-amber-200/80 flex items-center justify-center text-lg shadow-sm"><i class="ph-fill ph-star"></i></span>
+        <span class="w-9 h-9 rounded-xl bg-sky-100/80 border border-sky-200/80 flex items-center justify-center text-xl shadow-sm">&minus;</span>
+    </div>
+    <div aria-hidden="true" class="math-accent hidden xl:flex flex-col gap-5 fixed right-3 top-28 text-purple-500/55 font-bold">
+        <span class="w-9 h-9 rounded-full bg-emerald-100/80 border border-emerald-200/80 flex items-center justify-center text-base shadow-sm">12</span>
+        <span class="w-9 h-9 rounded-xl bg-pink-100/80 border border-pink-200/80 flex items-center justify-center text-lg shadow-sm"><i class="ph-fill ph-triangle"></i></span>
+        <span class="w-9 h-9 rounded-xl bg-sky-100/80 border border-sky-200/80 flex items-center justify-center text-xl shadow-sm">=</span>
+        <span class="w-9 h-9 rounded-xl bg-amber-100/80 border border-amber-200/80 flex items-center justify-center text-lg shadow-sm"><i class="ph-fill ph-sparkle"></i></span>
+    </div>
+
+    <!-- =====================================================================
+         COMPACT SINGLE-ROW TOP NAVIGATION BAR WITH DEDICATED SOUND SLOT & MOBILE MENU
+         Order: 1. Home | 2. About This Learning Resource | 3. Learning Sequence | 4. Introduction | 5. Number Line | 6. Fruit Basket Game | 7. Mathematics Quiz | 8. Congratulations
+         ===================================================================== -->
+    <header class="sticky top-0 z-50 px-2 pt-1.5 sm:px-4 sm:pt-2">
+        <nav aria-label="Main Navigation" class="max-w-7xl mx-auto bg-white/95 backdrop-blur-md border-2 border-pink-200 rounded-2xl shadow-md px-2 py-1.5 flex items-center justify-between gap-2">
+            <!-- Left / Mobile Hamburger Toggle for smaller screens -->
+            <button type="button" id="mobile-nav-toggle" onclick="toggleMobileNavMenu(event)"
+                aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav-drawer"
+                class="lg:hidden toy-btn shrink-0 flex items-center gap-1 bg-pink-50 hover:bg-pink-100 text-pink-700 border border-pink-300 rounded-xl px-2.5 py-1 text-xs font-bold cursor-pointer">
+                <i id="mobile-nav-icon" class="ph-bold ph-list text-base"></i>
+                <span>Pages</span>
+            </button>
+
+            <!-- Desktop / Tablet Horizontal Navigation Items (Single Row, No Overlap) -->
+            <ul class="hidden lg:flex items-center justify-start gap-1 flex-1 min-w-0 flex-wrap xl:flex-nowrap">
+                <!-- 1. Home -->
+                <li class="shrink-0">
+                    <button onclick="navigateTo(0)" id="nav-0"
+                        class="nav-item toy-btn flex items-center gap-1 px-2 py-1 rounded-xl text-[11px] xl:text-xs font-bold transition-colors cursor-pointer">
+                        <i class="ph-fill ph-house text-sm"></i>
+                        <span>Home</span>
+                    </button>
+                </li>
+
+                <!-- 2. About This Learning Resource -->
+                <li class="shrink-0">
+                    <button onclick="navigateTo(1)" id="nav-1"
+                        class="nav-item toy-btn flex items-center gap-1 px-2 py-1 rounded-xl text-[11px] xl:text-xs font-bold transition-colors cursor-pointer">
+                        <i class="ph-fill ph-info text-sm"></i>
+                        <span>About This Learning Resource</span>
+                    </button>
+                </li>
+
+                <!-- 3. Learning Sequence -->
+                <li class="shrink-0">
+                    <button onclick="navigateTo(2)" id="nav-2"
+                        class="nav-item toy-btn flex items-center gap-1 px-2 py-1 rounded-xl text-[11px] xl:text-xs font-bold transition-colors cursor-pointer">
+                        <i class="ph-fill ph-map-trifold text-sm"></i>
+                        <span>Learning Sequence</span>
+                    </button>
+                </li>
+
+                <!-- 4. Introduction -->
+                <li class="shrink-0">
+                    <button onclick="navigateTo(3)" id="nav-3"
+                        class="nav-item toy-btn flex items-center gap-1 px-2 py-1 rounded-xl text-[11px] xl:text-xs font-bold transition-colors cursor-pointer">
+                        <i class="ph-fill ph-book-open-text text-sm"></i>
+                        <span>Introduction</span>
+                    </button>
+                </li>
+
+                <!-- 5. Number Line -->
+                <li class="shrink-0">
+                    <button onclick="navigateTo(4)" id="nav-4"
+                        class="nav-item toy-btn flex items-center gap-1 px-2 py-1 rounded-xl text-[11px] xl:text-xs font-bold transition-colors cursor-pointer">
+                        <i class="ph-fill ph-arrows-left-right text-sm"></i>
+                        <span>Number Line</span>
+                    </button>
+                </li>
+
+                <!-- 6. Fruit Basket Game -->
+                <li class="shrink-0">
+                    <button onclick="navigateTo(5)" id="nav-5"
+                        class="nav-item toy-btn flex items-center gap-1 px-2 py-1 rounded-xl text-[11px] xl:text-xs font-bold transition-colors cursor-pointer">
+                        <i class="ph-fill ph-game-controller text-sm"></i>
+                        <span>Fruit Basket Game</span>
+                    </button>
+                </li>
+
+                <!-- 7. Mathematics Quiz -->
+                <li class="shrink-0">
+                    <button onclick="navigateTo(6)" id="nav-6"
+                        class="nav-item toy-btn flex items-center gap-1 px-2 py-1 rounded-xl text-[11px] xl:text-xs font-bold transition-colors cursor-pointer">
+                        <i class="ph-fill ph-trophy text-sm"></i>
+                        <span>Mathematics Quiz</span>
+                    </button>
+                </li>
+
+                <!-- 8. Congratulations -->
+                <li class="shrink-0">
+                    <button onclick="navigateTo(7)" id="nav-7"
+                        class="nav-item toy-btn flex items-center gap-1 px-2 py-1 rounded-xl text-[11px] xl:text-xs font-bold transition-colors cursor-pointer">
+                        <i class="ph-fill ph-confetti text-sm"></i>
+                        <span>Congratulations</span>
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Current Page Indicator Pill on Mobile / Tablet -->
+            <span id="mobile-current-page-badge" class="lg:hidden text-xs font-bold text-indigo-800 bg-indigo-50 border border-indigo-200 px-2.5 py-1 rounded-xl truncate max-w-[44vw]">
+                Home
+            </span>
+
+            <!-- Dedicated Far-Right Sound Control Button & Audio Settings Panel (Never Overlaps Tabs) -->
+            <div class="floating-sound-btn" id="floating-sound-wrapper">
+                <button type="button" id="sound-menu-toggle" onclick="toggleSoundPopover(event)"
+                    aria-label="Open music and sound settings" aria-expanded="false"
+                    class="toy-btn flex items-center gap-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-800 border-2 border-indigo-300 rounded-xl px-2.5 py-1 text-xs font-bold shadow-sm cursor-pointer">
+                    <span id="sound-header-icon" class="text-sm leading-none" aria-hidden="true">🔊</span>
+                    <span>Sound</span>
+                </button>
+
+                <!-- Compact Audio Settings Panel -->
+                <div id="sound-controls-popover"
+                    class="hidden absolute right-0 top-full mt-2 w-72 sm:w-80 bg-white/98 backdrop-blur-md border-2 border-indigo-200 rounded-2xl shadow-2xl p-3.5 sm:p-4 z-50 text-left">
+                    <div class="flex items-center justify-between mb-2.5">
+                        <span class="text-xs sm:text-sm font-bold uppercase tracking-wide text-indigo-800 flex items-center gap-1.5">
+                            <span aria-hidden="true">🎵</span>
+                            <span>Audio Settings</span>
+                        </span>
+                        <button type="button" onclick="closeSoundPopover()" aria-label="Close audio settings"
+                            class="text-slate-400 hover:text-slate-600 text-xs font-bold px-2 py-0.5 rounded-lg cursor-pointer">
+                            &#10005;
+                        </button>
+                    </div>
+
+                    <!-- Background Music: ON/OFF Toggle, Play/Pause Button & Independent Volume Slider -->
+                    <div class="py-2.5 border-b border-slate-100">
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <span class="text-xs sm:text-sm font-bold text-slate-700 flex items-center gap-1.5">
+                                <span aria-hidden="true">🎶</span>
+                                <span>Background Music</span>
+                            </span>
+                            <button type="button" id="music-toggle-btn" onclick="toggleBackgroundMusic()"
+                                class="toy-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 border border-slate-300 cursor-pointer">
+                                OFF
+                            </button>
+                        </div>
+
+                        <!-- Dedicated Play / Pause Music Button -->
+                        <div class="mb-2.5">
+                            <button type="button" id="music-play-pause-btn" onclick="toggleBackgroundMusic()"
+                                class="toy-btn w-full flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold bg-indigo-500 hover:bg-indigo-600 text-white border border-indigo-600 cursor-pointer">
+                                <span id="music-play-pause-icon" aria-hidden="true">▶</span>
+                                <span id="music-play-pause-label">Play Music</span>
+                            </button>
+                        </div>
+
+                        <div class="flex items-center justify-between text-[11px] sm:text-xs font-bold text-slate-600 mb-1">
+                            <label for="music-volume-slider">Music Volume (Soft)</label>
+                            <span id="music-volume-label" class="text-indigo-700">12%</span>
+                        </div>
+                        <input id="music-volume-slider" type="range" min="0" max="100" value="12"
+                            oninput="updateMusicVolume(this.value)"
+                            class="w-full accent-indigo-500 cursor-pointer h-2 rounded-lg">
+                    </div>
+
+                    <!-- Sound Effects: ON/OFF Toggle & Independent Volume Slider -->
+                    <div class="pt-2.5">
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <span class="text-xs sm:text-sm font-bold text-slate-700 flex items-center gap-1.5">
+                                <span id="sfx-label-icon" aria-hidden="true">🔊</span>
+                                <span>Sound Effects</span>
+                            </span>
+                            <button type="button" id="sfx-toggle-btn" onclick="toggleSoundEffects()"
+                                class="toy-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 cursor-pointer">
+                                ON
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-between text-[11px] sm:text-xs font-bold text-slate-600 mb-1">
+                            <label for="sfx-volume-slider">Sound Effects Volume</label>
+                            <span id="sfx-volume-label" class="text-emerald-700">65%</span>
+                        </div>
+                        <input id="sfx-volume-slider" type="range" min="0" max="100" value="65"
+                            oninput="updateSfxVolume(this.value)"
+                            class="w-full accent-emerald-500 cursor-pointer h-2 rounded-lg">
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Clean Collapsible Navigation Drawer for Smaller Screens (Mobile & Tablet) -->
+        <div id="mobile-nav-drawer"
+            class="hidden lg:hidden max-w-7xl mx-auto mt-1.5 bg-white/98 backdrop-blur-md border-2 border-pink-200 rounded-2xl shadow-xl p-2">
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                <li>
+                    <button onclick="navigateTo(0, { closeMobileMenu: true })" id="mobile-nav-0"
+                        class="mobile-nav-item toy-btn w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs sm:text-sm font-bold text-left cursor-pointer">
+                        <i class="ph-fill ph-house text-base"></i>
+                        <span>1. Home</span>
+                    </button>
+                </li>
+                <li>
+                    <button onclick="navigateTo(1, { closeMobileMenu: true })" id="mobile-nav-1"
+                        class="mobile-nav-item toy-btn w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs sm:text-sm font-bold text-left cursor-pointer">
+                        <i class="ph-fill ph-info text-base"></i>
+                        <span>2. About This Learning Resource</span>
+                    </button>
+                </li>
+                <li>
+                    <button onclick="navigateTo(2, { closeMobileMenu: true })" id="mobile-nav-2"
+                        class="mobile-nav-item toy-btn w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs sm:text-sm font-bold text-left cursor-pointer">
+                        <i class="ph-fill ph-map-trifold text-base"></i>
+                        <span>3. Learning Sequence</span>
+                    </button>
+                </li>
+                <li>
+                    <button onclick="navigateTo(3, { closeMobileMenu: true })" id="mobile-nav-3"
+                        class="mobile-nav-item toy-btn w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs sm:text-sm font-bold text-left cursor-pointer">
+                        <i class="ph-fill ph-book-open-text text-base"></i>
+                        <span>4. Introduction</span>
+                    </button>
+                </li>
+                <li>
+                    <button onclick="navigateTo(4, { closeMobileMenu: true })" id="mobile-nav-4"
+                        class="mobile-nav-item toy-btn w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs sm:text-sm font-bold text-left cursor-pointer">
+                        <i class="ph-fill ph-arrows-left-right text-base"></i>
+                        <span>5. Number Line</span>
+                    </button>
+                </li>
+                <li>
+                    <button onclick="navigateTo(5, { closeMobileMenu: true })" id="mobile-nav-5"
+                        class="mobile-nav-item toy-btn w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs sm:text-sm font-bold text-left cursor-pointer">
+                        <i class="ph-fill ph-game-controller text-base"></i>
+                        <span>6. Fruit Basket Game</span>
+                    </button>
+                </li>
+                <li>
+                    <button onclick="navigateTo(6, { closeMobileMenu: true })" id="mobile-nav-6"
+                        class="mobile-nav-item toy-btn w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs sm:text-sm font-bold text-left cursor-pointer">
+                        <i class="ph-fill ph-trophy text-base"></i>
+                        <span>7. Mathematics Quiz</span>
+                    </button>
+                </li>
+                <li>
+                    <button onclick="navigateTo(7, { closeMobileMenu: true })" id="mobile-nav-7"
+                        class="mobile-nav-item toy-btn w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs sm:text-sm font-bold text-left cursor-pointer">
+                        <i class="ph-fill ph-confetti text-base"></i>
+                        <span>8. Congratulations</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- =====================================================================
+         MAIN CONTENT AREA (8 Interactive Pages)
+         ===================================================================== -->
+    <main class="flex-grow flex flex-col items-center justify-start w-full max-w-6xl mx-auto px-2.5 sm:px-4 py-2 sm:py-3">
+
+        <!-- =================================================================
+             PAGE 0: HOMEPAGE
+             ================================================================= -->
+        <section id="page-0" class="page-section w-full flex flex-col items-center py-1 gap-4 sm:gap-5">
+            <!-- Hero Main Title Card -->
+            <div class="relative w-full max-w-5xl bg-white/95 backdrop-blur-md border-3 border-orange-300 rounded-3xl shadow-lg px-5 py-6 sm:px-10 sm:py-8 text-center">
+                <!-- Decorative Corner Math Badges -->
+                <div class="float-badge hidden sm:flex items-center justify-center w-11 h-11 rounded-2xl bg-orange-400 text-white text-2xl font-bold shadow-md absolute -top-3.5 -left-3.5 border-2 border-white">
+                    +
+                </div>
+                <div class="float-badge hidden sm:flex items-center justify-center w-11 h-11 rounded-2xl bg-sky-400 text-white text-2xl font-bold shadow-md absolute -top-3.5 -right-3.5 border-2 border-white" style="animation-delay: 0.7s;">
+                    &minus;
+                </div>
+                <div class="float-badge hidden md:flex items-center justify-center w-10 h-10 rounded-xl bg-purple-500 text-white text-xl font-bold shadow-md absolute -bottom-3 left-8 border-2 border-white" style="animation-delay: 1.2s;">
+                    1
+                </div>
+                <div class="float-badge hidden md:flex items-center justify-center w-10 h-10 rounded-xl bg-emerald-400 text-white text-xl font-bold shadow-md absolute -bottom-3 right-8 border-2 border-white" style="animation-delay: 1.8s;">
+                    2
+                </div>
+
+                <!-- Main Homepage Title -->
+                <h1 class="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-tight">
+                    <span class="block text-orange-500 drop-shadow-sm">Let's Explore</span>
+                    <span class="block mt-1 bg-gradient-to-r from-purple-600 via-sky-500 to-emerald-500 bg-clip-text text-transparent">
+                        Addition and Subtraction
+                    </span>
+                </h1>
+            </div>
+
+            <!-- SECTION A: Welcome Message -->
+            <div class="w-full max-w-5xl bg-white/95 backdrop-blur-md border-3 border-pink-300 rounded-3xl shadow-md px-5 py-4 sm:px-8 sm:py-5">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+                    <div class="flex-1">
+                        <div class="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2.5 mb-1.5">
+                            <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-pink-500 text-white text-xl shadow-sm">
+                                <i class="ph-fill ph-hand-waving"></i>
+                            </span>
+                            <h2 class="text-xl sm:text-3xl font-bold text-pink-600">
+                                Welcome, Little Mathematicians!
+                            </h2>
+                        </div>
+                        <p class="text-base sm:text-lg font-medium text-slate-700 leading-snug">
+                            Welcome to our exciting Mathematics learning journey! Here, you will explore addition and subtraction through interactive learning materials, fun activities, games and quizzes.
+                        </p>
+                    </div>
+                    <!-- Official White Bunny Mascot Greeting on Homepage -->
+                    <div class="shrink-0 w-24 h-28 sm:w-28 sm:h-32 bg-pink-50/80 border-2 border-pink-200 rounded-2xl p-1.5 flex items-center justify-center shadow-sm" aria-hidden="true">
+                        <svg viewBox="0 0 220 240" class="w-full h-full">
+                            <use href="#storybookBunnyMascot" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION B: What Will You Discover? -->
+            <div class="w-full max-w-5xl bg-white/95 backdrop-blur-md border-3 border-sky-300 rounded-3xl shadow-md p-4 sm:p-6">
+                <div class="flex items-center justify-center gap-2.5 mb-4">
+                    <span class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-sky-500 text-white text-xl shadow-sm">
+                        <i class="ph-fill ph-compass"></i>
+                    </span>
+                    <h2 class="text-xl sm:text-3xl font-bold text-sky-700">
+                        What Will You Discover?
+                    </h2>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+                    <!-- 1. Addition -->
+                    <div class="bg-orange-50 border-2 border-orange-300 rounded-2xl p-4 text-center shadow-sm hover:-translate-y-0.5 transition-transform flex flex-col items-center">
+                        <div class="w-11 h-11 rounded-xl bg-orange-500 text-white flex items-center justify-center text-2xl font-bold shadow-sm mb-2">
+                            <i class="ph-bold ph-plus"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-orange-800 mb-1">Addition</h3>
+                        <p class="text-xs sm:text-sm font-medium text-slate-700 leading-snug">
+                            Learn how to add numbers within 100.
+                        </p>
+                    </div>
+
+                    <!-- 2. Subtraction -->
+                    <div class="bg-purple-50 border-2 border-purple-300 rounded-2xl p-4 text-center shadow-sm hover:-translate-y-0.5 transition-transform flex flex-col items-center">
+                        <div class="w-11 h-11 rounded-xl bg-purple-500 text-white flex items-center justify-center text-2xl font-bold shadow-sm mb-2">
+                            <i class="ph-bold ph-minus"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-purple-800 mb-1">Subtraction</h3>
+                        <p class="text-xs sm:text-sm font-medium text-slate-700 leading-snug">
+                            Discover how to subtract numbers within 100.
+                        </p>
+                    </div>
+
+                    <!-- 3. Number Line -->
+                    <div class="bg-sky-50 border-2 border-sky-300 rounded-2xl p-4 text-center shadow-sm hover:-translate-y-0.5 transition-transform flex flex-col items-center">
+                        <div class="w-11 h-11 rounded-xl bg-sky-500 text-white flex items-center justify-center text-2xl shadow-sm mb-2">
+                            <i class="ph-fill ph-arrows-left-right"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-sky-800 mb-1">Number Line</h3>
+                        <p class="text-xs sm:text-sm font-medium text-slate-700 leading-snug">
+                            Explore how numbers move forward and backward on a number line.
+                        </p>
+                    </div>
+
+                    <!-- 4. Fun Learning Activities -->
+                    <div class="bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-4 text-center shadow-sm hover:-translate-y-0.5 transition-transform flex flex-col items-center">
+                        <div class="w-11 h-11 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-2xl shadow-sm mb-2">
+                            <i class="ph-fill ph-game-controller"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-emerald-800 mb-1">Fun Learning Activities</h3>
+                        <p class="text-xs sm:text-sm font-medium text-slate-700 leading-snug">
+                            Practise your mathematical skills through interactive games and quizzes.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION C: Your Learning Journey -->
+            <div class="w-full max-w-5xl bg-white/95 backdrop-blur-md border-3 border-rose-300 rounded-3xl shadow-md p-4 sm:p-6">
+                <div class="text-center mb-4">
+                    <div class="flex items-center justify-center gap-2 mb-1">
+                        <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-rose-500 text-white text-lg shadow-sm">
+                            <i class="ph-fill ph-map-trifold"></i>
+                        </span>
+                        <h2 class="text-xl sm:text-3xl font-bold text-rose-600">
+                            Your Learning Journey
+                        </h2>
+                    </div>
+                    <p class="text-sm sm:text-base font-semibold text-slate-700">
+                        Complete these four exciting activities step by step to improve your addition and subtraction skills!
+                    </p>
+                </div>
+
+                <!-- Connected Step-by-Step Visual Preview -->
+                <div class="flex flex-col lg:flex-row items-stretch justify-between gap-2">
+                    <!-- 01 -->
+                    <button onclick="navigateTo(3)" class="toy-btn flex-1 bg-purple-50 hover:bg-purple-100 border-2 border-purple-300 rounded-2xl p-3 flex flex-col items-center text-center cursor-pointer">
+                        <div class="flex items-center gap-1.5 mb-1.5">
+                            <span class="bg-purple-600 text-white font-bold text-xs px-2 py-0.5 rounded-full">01</span>
+                            <span class="text-xs font-bold text-purple-700 bg-purple-200/80 px-2 py-0.5 rounded-full">Canva</span>
+                        </div>
+                        <div class="w-9 h-9 rounded-xl bg-purple-500 text-white flex items-center justify-center text-lg mb-1.5">
+                            <i class="ph-fill ph-book-open-text"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-purple-900 leading-tight">
+                            Let's Add &amp; Subtract!
+                        </h3>
+                    </button>
+
+                    <!-- Arrow -->
+                    <div class="flex items-center justify-center text-rose-400">
+                        <i class="ph-bold ph-arrow-down lg:hidden text-xl"></i>
+                        <i class="ph-bold ph-arrow-right hidden lg:inline text-xl"></i>
+                    </div>
+
+                    <!-- 02 -->
+                    <button onclick="navigateTo(4)" class="toy-btn flex-1 bg-sky-50 hover:bg-sky-100 border-2 border-sky-300 rounded-2xl p-3 flex flex-col items-center text-center cursor-pointer">
+                        <div class="flex items-center gap-1.5 mb-1.5">
+                            <span class="bg-sky-600 text-white font-bold text-xs px-2 py-0.5 rounded-full">02</span>
+                            <span class="text-xs font-bold text-sky-700 bg-sky-200/80 px-2 py-0.5 rounded-full">GeoGebra</span>
+                        </div>
+                        <div class="w-9 h-9 rounded-xl bg-sky-500 text-white flex items-center justify-center text-lg mb-1.5">
+                            <i class="ph-fill ph-arrows-left-right"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-sky-900 leading-tight">
+                            Let's Explore Addition &amp; Subtraction on a Number Line!
+                        </h3>
+                    </button>
+
+                    <!-- Arrow -->
+                    <div class="flex items-center justify-center text-rose-400">
+                        <i class="ph-bold ph-arrow-down lg:hidden text-xl"></i>
+                        <i class="ph-bold ph-arrow-right hidden lg:inline text-xl"></i>
+                    </div>
+
+                    <!-- 03 -->
+                    <button onclick="navigateTo(5)" class="toy-btn flex-1 bg-amber-50 hover:bg-amber-100 border-2 border-amber-300 rounded-2xl p-3 flex flex-col items-center text-center cursor-pointer">
+                        <div class="flex items-center gap-1.5 mb-1.5">
+                            <span class="bg-amber-500 text-white font-bold text-xs px-2 py-0.5 rounded-full">03</span>
+                            <span class="text-xs font-bold text-amber-800 bg-amber-200/80 px-2 py-0.5 rounded-full">Scratch</span>
+                        </div>
+                        <div class="w-9 h-9 rounded-xl bg-amber-500 text-white flex items-center justify-center text-lg mb-1.5">
+                            <i class="ph-fill ph-game-controller"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-amber-900 leading-tight">
+                            My Happy Fruit Garden!
+                        </h3>
+                    </button>
+
+                    <!-- Arrow -->
+                    <div class="flex items-center justify-center text-rose-400">
+                        <i class="ph-bold ph-arrow-down lg:hidden text-xl"></i>
+                        <i class="ph-bold ph-arrow-right hidden lg:inline text-xl"></i>
+                    </div>
+
+                    <!-- 04 -->
+                    <button onclick="navigateTo(6)" class="toy-btn flex-1 bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-300 rounded-2xl p-3 flex flex-col items-center text-center cursor-pointer">
+                        <div class="flex items-center gap-1.5 mb-1.5">
+                            <span class="bg-emerald-600 text-white font-bold text-xs px-2 py-0.5 rounded-full">04</span>
+                            <span class="text-xs font-bold text-emerald-800 bg-emerald-200/80 px-2 py-0.5 rounded-full">Wayground</span>
+                        </div>
+                        <div class="w-9 h-9 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-lg mb-1.5">
+                            <i class="ph-fill ph-trophy"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-emerald-900 leading-tight">
+                            Happy Numbers Challenge!
+                        </h3>
+                    </button>
+                </div>
+            </div>
+
+            <!-- SECTION D: Encouraging Message -->
+            <div class="w-full max-w-5xl bg-gradient-to-r from-amber-100 via-orange-100 to-pink-100 border-3 border-amber-300 rounded-3xl shadow-md px-5 py-3.5 text-center">
+                <div class="flex items-center justify-center gap-2">
+                    <i class="ph-fill ph-star text-amber-500 text-xl sm:text-2xl"></i>
+                    <h2 class="text-lg sm:text-2xl font-bold text-orange-600">
+                        Are You Ready?
+                    </h2>
+                    <span class="text-slate-400 font-bold">&mdash;</span>
+                    <p class="text-sm sm:text-lg font-bold text-slate-800">
+                        Let's explore, learn and have fun with numbers!
+                    </p>
+                    <button type="button" onclick="startLearningJourney()"
+                        class="toy-btn inline-flex items-center gap-1.5 bg-orange-500 hover:bg-orange-600 text-white text-xs sm:text-sm font-bold px-3.5 py-1.5 rounded-xl border border-orange-600 cursor-pointer">
+                        <i class="ph-fill ph-play-circle text-base"></i>
+                        <span>Start Journey</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================================
+             PAGE 1: ABOUT THIS LEARNING RESOURCE (Includes Section A & Section B: Learning Objectives)
+             ================================================================= -->
+        <section id="page-1" class="page-section hidden w-full py-1">
+            <div class="w-full max-w-5xl mx-auto bg-white/95 backdrop-blur-md border-3 border-pink-300 rounded-3xl shadow-lg p-4 sm:p-6 md:p-7 space-y-5">
+                <!-- SECTION A: Learning Resource Information -->
+                <div>
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 mb-4">
+                        <div class="flex items-center justify-center sm:justify-start gap-2.5">
+                            <span class="inline-flex items-center justify-center w-10 h-10 rounded-2xl bg-pink-500 text-white text-2xl shadow-sm">
+                                <i class="ph-fill ph-sparkle"></i>
+                            </span>
+                            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-pink-600 text-center sm:text-left">
+                                About This Learning Resource
+                            </h2>
+                        </div>
+                        <div class="w-16 h-18 sm:w-20 sm:h-22 bg-pink-50 border-2 border-pink-200 rounded-2xl p-1 flex items-center justify-center shadow-sm shrink-0" aria-hidden="true">
+                            <svg viewBox="0 0 220 240" class="w-full h-full">
+                                <use href="#storybookBunnyMascot" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Three Colourful Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+                        <!-- Card 1: Subject -->
+                        <div class="bg-sky-50 border-2 border-sky-300 rounded-2xl p-4 text-center shadow-sm hover:-translate-y-0.5 transition-transform">
+                            <div class="w-11 h-11 mx-auto mb-2 rounded-2xl bg-sky-500 text-white flex items-center justify-center text-2xl shadow-sm">
+                                <i class="ph-fill ph-calculator"></i>
+                            </div>
+                            <span class="inline-block bg-sky-200 text-sky-900 font-bold text-xs uppercase tracking-wider px-3 py-0.5 rounded-full mb-1">
+                                Subject
+                            </span>
+                            <h3 class="text-lg sm:text-xl font-bold text-sky-800">
+                                Mathematics
+                            </h3>
+                        </div>
+
+                        <!-- Card 2: Topic -->
+                        <div class="bg-orange-50 border-2 border-orange-300 rounded-2xl p-4 text-center shadow-sm hover:-translate-y-0.5 transition-transform">
+                            <div class="w-11 h-11 mx-auto mb-2 rounded-2xl bg-orange-500 text-white flex items-center justify-center text-xl font-bold shadow-sm">
+                                <span>+ &minus;</span>
+                            </div>
+                            <span class="inline-block bg-orange-200 text-orange-900 font-bold text-xs uppercase tracking-wider px-3 py-0.5 rounded-full mb-1">
+                                Topic
+                            </span>
+                            <h3 class="text-lg sm:text-xl font-bold text-orange-800">
+                                Addition and Subtraction
+                            </h3>
+                        </div>
+
+                        <!-- Card 3: Target Audience -->
+                        <div class="bg-purple-50 border-2 border-purple-300 rounded-2xl p-4 text-center shadow-sm hover:-translate-y-0.5 transition-transform">
+                            <div class="w-11 h-11 mx-auto mb-2 rounded-2xl bg-purple-500 text-white flex items-center justify-center text-2xl shadow-sm">
+                                <i class="ph-fill ph-student"></i>
+                            </div>
+                            <span class="inline-block bg-purple-200 text-purple-900 font-bold text-xs uppercase tracking-wider px-3 py-0.5 rounded-full mb-1">
+                                Target Audience
+                            </span>
+                            <h3 class="text-lg sm:text-xl font-bold text-purple-800">
+                                Year 1 Primary School Pupils
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divider -->
+                <hr class="border-t-2 border-dashed border-pink-200">
+
+                <!-- SECTION B: Learning Objectives -->
+                <div>
+                    <div class="text-center mb-4">
+                        <div class="flex items-center justify-center gap-2 mb-1.5">
+                            <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-indigo-500 text-white text-xl shadow-sm">
+                                <i class="ph-fill ph-target"></i>
+                            </span>
+                            <h2 class="text-xl sm:text-3xl font-bold text-indigo-700">
+                                Learning Objectives
+                            </h2>
+                        </div>
+                        <p class="text-sm sm:text-base font-semibold text-slate-700 bg-indigo-50 inline-block px-4 py-1.5 rounded-xl border border-indigo-200">
+                            By the end of the learning activities, pupils should be able to:
+                        </p>
+                    </div>
+
+                    <!-- Four Attractive Objective Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                        <!-- Objective 01 -->
+                        <div class="bg-orange-50 border-2 border-orange-300 rounded-2xl p-3.5 sm:p-4 flex items-start gap-3 shadow-sm hover:-translate-y-0.5 transition-transform">
+                            <div class="shrink-0 w-11 h-11 rounded-xl bg-orange-500 text-white flex flex-col items-center justify-center font-bold shadow-sm">
+                                <span class="text-[10px] leading-none opacity-90">01</span>
+                                <span class="text-base leading-tight">+ &minus;</span>
+                            </div>
+                            <p class="text-sm sm:text-base font-semibold text-slate-800 leading-snug">
+                                Identify <span class="text-orange-600 font-bold">addition</span> and <span class="text-sky-600 font-bold">subtraction</span> operations using mathematical symbols.
+                            </p>
+                        </div>
+
+                        <!-- Objective 02 -->
+                        <div class="bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-3.5 sm:p-4 flex items-start gap-3 shadow-sm hover:-translate-y-0.5 transition-transform">
+                            <div class="shrink-0 w-11 h-11 rounded-xl bg-emerald-500 text-white flex flex-col items-center justify-center font-bold shadow-sm">
+                                <span class="text-[10px] leading-none opacity-90">02</span>
+                                <i class="ph-fill ph-plus-circle text-lg"></i>
+                            </div>
+                            <p class="text-sm sm:text-base font-semibold text-slate-800 leading-snug">
+                                Solve <span class="text-emerald-700 font-bold">addition</span> problems involving two numbers with sums within <span class="text-emerald-700 font-bold">100</span>.
+                            </p>
+                        </div>
+
+                        <!-- Objective 03 -->
+                        <div class="bg-purple-50 border-2 border-purple-300 rounded-2xl p-3.5 sm:p-4 flex items-start gap-3 shadow-sm hover:-translate-y-0.5 transition-transform">
+                            <div class="shrink-0 w-11 h-11 rounded-xl bg-purple-500 text-white flex flex-col items-center justify-center font-bold shadow-sm">
+                                <span class="text-[10px] leading-none opacity-90">03</span>
+                                <i class="ph-fill ph-minus-circle text-lg"></i>
+                            </div>
+                            <p class="text-sm sm:text-base font-semibold text-slate-800 leading-snug">
+                                Solve <span class="text-purple-700 font-bold">subtraction</span> problems involving numbers within <span class="text-purple-700 font-bold">100</span>.
+                            </p>
+                        </div>
+
+                        <!-- Objective 04 -->
+                        <div class="bg-sky-50 border-2 border-sky-300 rounded-2xl p-3.5 sm:p-4 flex items-start gap-3 shadow-sm hover:-translate-y-0.5 transition-transform">
+                            <div class="shrink-0 w-11 h-11 rounded-xl bg-sky-500 text-white flex flex-col items-center justify-center font-bold shadow-sm">
+                                <span class="text-[10px] leading-none opacity-90">04</span>
+                                <i class="ph-fill ph-arrows-left-right text-lg"></i>
+                            </div>
+                            <p class="text-sm sm:text-base font-semibold text-slate-800 leading-snug">
+                                Use a <span class="text-sky-700 font-bold">number line</span> to demonstrate and solve <span class="text-orange-600 font-bold">addition</span> and <span class="text-sky-700 font-bold">subtraction</span> problems accurately.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================================
+             PAGE 2: LEARNING SEQUENCE ("Your Learning Journey!")
+             ================================================================= -->
+        <section id="page-2" class="page-section hidden w-full py-1">
+            <div class="w-full max-w-6xl mx-auto bg-white/95 backdrop-blur-md border-3 border-rose-300 rounded-3xl shadow-lg p-4 sm:p-6 md:p-7">
+                <!-- Title & Introduction -->
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-3 mb-5">
+                    <div class="text-center sm:text-left flex-1">
+                        <div class="flex items-center justify-center sm:justify-start gap-2.5 mb-1.5">
+                            <span class="inline-flex items-center justify-center w-10 h-10 rounded-2xl bg-rose-500 text-white text-2xl shadow-sm">
+                                <i class="ph-fill ph-map-trifold"></i>
+                            </span>
+                            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-rose-600">
+                                Your Learning Journey!
+                            </h2>
+                        </div>
+                        <p class="text-sm sm:text-lg font-semibold text-slate-700 bg-rose-50 inline-block px-4 py-1.5 rounded-xl border border-rose-200">
+                            Follow these four activities in order to explore addition and subtraction within 100.
+                        </p>
+                    </div>
+                    <div class="w-16 h-18 sm:w-20 sm:h-22 bg-rose-50 border-2 border-rose-200 rounded-2xl p-1 flex items-center justify-center shadow-sm shrink-0" aria-hidden="true">
+                        <svg viewBox="0 0 220 240" class="w-full h-full">
+                            <use href="#storybookBunnyMascot" />
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Connected 4-Step Learning Sequence -->
+                <div class="flex flex-col lg:flex-row items-stretch justify-between gap-2">
+                    <!-- STEP 01 -->
+                    <div class="flex-1 bg-purple-50 border-2 border-purple-300 rounded-2xl p-3.5 flex flex-col items-center text-center shadow-sm hover:-translate-y-0.5 transition-transform">
+                        <div class="flex items-center justify-between w-full mb-2">
+                            <span class="bg-purple-600 text-white font-bold text-xs px-2.5 py-0.5 rounded-full">
+                                STEP 01
+                            </span>
+                            <span class="bg-purple-200 text-purple-900 font-bold text-[11px] px-2 py-0.5 rounded-full">
+                                Canva Presentation
+                            </span>
+                        </div>
+                        <div class="w-11 h-11 rounded-xl bg-purple-500 text-white flex items-center justify-center text-2xl shadow-sm mb-2">
+                            <i class="ph-fill ph-book-open-text"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-purple-900 mb-1 leading-snug">
+                            Let's Add &amp; Subtract!
+                        </h3>
+                        <p class="text-xs sm:text-sm font-medium text-slate-700 leading-snug">
+                            Discover the basic concepts of addition and subtraction through the learning slides.
+                        </p>
+                    </div>
+
+                    <!-- Connecting Arrow 1 -> 2 -->
+                    <div class="flex items-center justify-center text-rose-400">
+                        <i class="ph-bold ph-arrow-down lg:hidden text-2xl"></i>
+                        <i class="ph-bold ph-arrow-right hidden lg:inline text-2xl"></i>
+                    </div>
+
+                    <!-- STEP 02 -->
+                    <div class="flex-1 bg-sky-50 border-2 border-sky-300 rounded-2xl p-3.5 flex flex-col items-center text-center shadow-sm hover:-translate-y-0.5 transition-transform">
+                        <div class="flex items-center justify-between w-full mb-2">
+                            <span class="bg-sky-600 text-white font-bold text-xs px-2.5 py-0.5 rounded-full">
+                                STEP 02
+                            </span>
+                            <span class="bg-sky-200 text-sky-900 font-bold text-[11px] px-2 py-0.5 rounded-full">
+                                GeoGebra
+                            </span>
+                        </div>
+                        <div class="w-11 h-11 rounded-xl bg-sky-500 text-white flex items-center justify-center text-2xl shadow-sm mb-2">
+                            <i class="ph-fill ph-arrows-left-right"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-sky-900 mb-1 leading-snug">
+                            Let's Explore Addition &amp; Subtraction on a Number Line!
+                        </h3>
+                        <p class="text-xs sm:text-sm font-medium text-slate-700 leading-snug">
+                            Explore how addition and subtraction work through movement on a dynamic number line.
+                        </p>
+                    </div>
+
+                    <!-- Connecting Arrow 2 -> 3 -->
+                    <div class="flex items-center justify-center text-rose-400">
+                        <i class="ph-bold ph-arrow-down lg:hidden text-2xl"></i>
+                        <i class="ph-bold ph-arrow-right hidden lg:inline text-2xl"></i>
+                    </div>
+
+                    <!-- STEP 03 -->
+                    <div class="flex-1 bg-amber-50 border-2 border-amber-300 rounded-2xl p-3.5 flex flex-col items-center text-center shadow-sm hover:-translate-y-0.5 transition-transform">
+                        <div class="flex items-center justify-between w-full mb-2">
+                            <span class="bg-amber-500 text-white font-bold text-xs px-2.5 py-0.5 rounded-full">
+                                STEP 03
+                            </span>
+                            <span class="bg-amber-200 text-amber-900 font-bold text-[11px] px-2 py-0.5 rounded-full">
+                                Scratch
+                            </span>
+                        </div>
+                        <div class="w-11 h-11 rounded-xl bg-amber-500 text-white flex items-center justify-center text-2xl shadow-sm mb-2">
+                            <i class="ph-fill ph-game-controller"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-amber-900 mb-1 leading-snug">
+                            My Happy Fruit Garden!
+                        </h3>
+                        <p class="text-xs sm:text-sm font-medium text-slate-700 leading-snug">
+                            Apply your mathematical knowledge through an interactive fruit-counting game based on addition and subtraction.
+                        </p>
+                    </div>
+
+                    <!-- Connecting Arrow 3 -> 4 -->
+                    <div class="flex items-center justify-center text-rose-400">
+                        <i class="ph-bold ph-arrow-down lg:hidden text-2xl"></i>
+                        <i class="ph-bold ph-arrow-right hidden lg:inline text-2xl"></i>
+                    </div>
+
+                    <!-- STEP 04 -->
+                    <div class="flex-1 bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-3.5 flex flex-col items-center text-center shadow-sm hover:-translate-y-0.5 transition-transform">
+                        <div class="flex items-center justify-between w-full mb-2">
+                            <span class="bg-emerald-600 text-white font-bold text-xs px-2.5 py-0.5 rounded-full">
+                                STEP 04
+                            </span>
+                            <span class="bg-emerald-200 text-emerald-900 font-bold text-[11px] px-2 py-0.5 rounded-full">
+                                Wayground
+                            </span>
+                        </div>
+                        <div class="w-11 h-11 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-2xl shadow-sm mb-2">
+                            <i class="ph-fill ph-trophy"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-emerald-900 mb-1 leading-snug">
+                            Happy Numbers Challenge!
+                        </h3>
+                        <p class="text-xs sm:text-sm font-medium text-slate-700 leading-snug">
+                            Test your understanding of addition and subtraction through a mathematics quiz.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Encouraging Footer Banner -->
+                <div class="mt-4 text-center">
+                    <div class="inline-flex items-center gap-2 bg-gradient-to-r from-rose-100 via-amber-100 to-emerald-100 border border-rose-300 px-4 py-2 rounded-xl shadow-sm">
+                        <i class="ph-fill ph-star text-amber-500 text-lg"></i>
+                        <p class="text-xs sm:text-base font-bold text-slate-800">
+                            You are ready to become a Math Star! Click <span class="text-orange-600">Next</span> to begin Step 01!
+                        </p>
+                        <i class="ph-fill ph-star text-amber-500 text-lg"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================================
+             PAGE 3: INTRODUCTION TO ADDITION AND SUBTRACTION (CANVA)
+             Title: Let's Add & Subtract!
+             URL: https://www.canva.com/design/DAHZx940aK4/mpT8KoHh7dzZpsReMu3umQ/view?embed
+             ================================================================= -->
+        <section id="page-3" class="page-section hidden w-full flex flex-col">
+            <div class="w-full flex flex-col bg-white/95 backdrop-blur-md border-3 border-purple-300 rounded-2xl shadow-lg overflow-hidden">
+                <!-- Compact Activity Heading Above Embedded Resource -->
+                <div class="flex items-center justify-between gap-2 px-3 py-2 sm:px-4 bg-purple-100/90 border-b border-purple-200">
+                    <div class="flex items-center gap-2">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-xl bg-purple-500 text-white text-lg shadow-sm">
+                            <i class="ph-fill ph-book-open-text"></i>
+                        </span>
+                        <h2 class="text-lg sm:text-2xl font-bold text-purple-800">
+                            Let's Add &amp; Subtract!
+                        </h2>
+                    </div>
+                    <a href="https://www.canva.com/design/DAHZx940aK4/mpT8KoHh7dzZpsReMu3umQ/view?embed" target="_blank" rel="noopener noreferrer"
+                       class="toy-btn inline-flex items-center gap-1 bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold px-2.5 py-1.5 rounded-lg">
+                        <i class="ph-bold ph-arrow-square-out text-sm"></i>
+                        <span>Full Screen</span>
+                    </a>
+                </div>
+
+                <!-- Compact Student-Friendly Instruction Card (Purple Theme) -->
+                <div class="activity-instruction-panel mx-2.5 mt-2 sm:mx-3.5 bg-purple-50 border border-purple-200 rounded-xl px-3.5 py-3 shadow-sm">
+                    <div class="activity-instruction-body">
+                        <!-- Left: Bunny Mascot + Heading & Description with generous horizontal width -->
+                        <div class="activity-instruction-intro">
+                            <div class="shrink-0 w-14 h-16 sm:w-16 sm:h-18 bg-white border border-purple-200 rounded-xl p-1 flex items-center justify-center shadow-2xs" aria-hidden="true">
+                                <svg viewBox="0 0 220 240" class="w-full h-full">
+                                    <use href="#storybookBunnyMascot" />
+                                </svg>
+                            </div>
+                            <div class="activity-instruction-copy">
+                                <h3 class="instr-heading font-bold text-purple-900">
+                                    Let's Learn Together!
+                                </h3>
+                                <p class="instr-desc font-medium text-slate-700">
+                                    Let's understand the concepts of addition and subtraction. Look carefully at the information and examples presented in the slides below.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Right / Below: Neatly proportioned "What to Do" Box -->
+                        <div class="w-full bg-white/95 border border-purple-200 rounded-xl px-3.5 py-2.5">
+                            <span class="instr-todo-title font-bold uppercase tracking-wide text-purple-700 flex items-center gap-1 mb-1">
+                                <i class="ph-bold ph-list-checks"></i>
+                                <span>What to Do</span>
+                            </span>
+                            <ul class="instr-todo-list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-x-3 gap-y-0.5 font-semibold text-slate-700">
+                                <li>&bull; Look carefully at each slide.</li>
+                                <li>&bull; Understand the addition &amp; subtraction examples.</li>
+                                <li>&bull; Swipe to the next slide to continue.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Responsive Embedded Canva Container sized for immediate visibility -->
+                <div class="relative w-full h-[64vh] sm:h-[70vh] bg-slate-50 mt-2">
+                    <iframe
+                        src="https://www.canva.com/design/DAHZx940aK4/mpT8KoHh7dzZpsReMu3umQ/view?embed"
+                        title="Let's Add & Subtract! - Canva Presentation"
+                        class="absolute inset-0 w-full h-full border-0"
+                        allowfullscreen="allowfullscreen"
+                        allow="fullscreen">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================================
+             PAGE 4: NUMBER LINE ACTIVITY (GEOGEBRA)
+             Title: Let's Explore Addition & Subtraction on a Number Line!
+             URL: https://www.geogebra.org/m/zqxsed3k
+             ================================================================= -->
+        <section id="page-4" class="page-section hidden w-full flex flex-col">
+            <div class="w-full flex flex-col bg-white/95 backdrop-blur-md border-3 border-sky-300 rounded-2xl shadow-lg overflow-hidden">
+                <!-- Compact Activity Heading Above Embedded Resource -->
+                <div class="flex items-center justify-between gap-2 px-3 py-2 sm:px-4 bg-sky-100/90 border-b border-sky-200">
+                    <div class="flex items-center gap-2">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-xl bg-sky-500 text-white text-lg shadow-sm">
+                            <i class="ph-fill ph-arrows-left-right"></i>
+                        </span>
+                        <h2 class="text-lg sm:text-2xl font-bold text-sky-800">
+                            Let's Explore Addition &amp; Subtraction on a Number Line!
+                        </h2>
+                    </div>
+                    <a href="https://www.geogebra.org/m/zqxsed3k" target="_blank" rel="noopener noreferrer"
+                       class="toy-btn inline-flex items-center gap-1 bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold px-2.5 py-1.5 rounded-lg">
+                        <i class="ph-bold ph-arrow-square-out text-sm"></i>
+                        <span>New Tab</span>
+                    </a>
+                </div>
+
+                <!-- Compact Student-Friendly Instruction Card (Blue Theme) -->
+                <div class="activity-instruction-panel mx-2.5 mt-2 sm:mx-3.5 bg-sky-50 border border-sky-200 rounded-xl px-3.5 py-3 shadow-sm">
+                    <div class="activity-instruction-body">
+                        <div class="activity-instruction-intro">
+                            <div class="shrink-0 w-14 h-16 sm:w-16 sm:h-18 bg-white border border-sky-200 rounded-xl p-1 flex items-center justify-center shadow-2xs" aria-hidden="true">
+                                <svg viewBox="0 0 220 240" class="w-full h-full">
+                                    <use href="#storybookBunnyMascot" />
+                                </svg>
+                            </div>
+                            <div class="activity-instruction-copy">
+                                <h3 class="instr-heading font-bold text-sky-900">
+                                    Let's Explore the Number Line!
+                                </h3>
+                                <p class="instr-desc font-medium text-slate-700">
+                                    Now, let's learn how to solve addition and subtraction problems using a number line!
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="w-full bg-white/95 border border-sky-200 rounded-xl px-3.5 py-2.5">
+                            <span class="instr-todo-title font-bold uppercase tracking-wide text-sky-700 flex items-center gap-1 mb-1">
+                                <i class="ph-bold ph-list-checks"></i>
+                                <span>What to Do</span>
+                            </span>
+                            <ul class="instr-todo-list grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-0.5 font-semibold text-slate-700">
+                                <li>&bull; Read the question carefully.</li>
+                                <li>&bull; Observe numbers on the line.</li>
+                                <li>&bull; Move the marker to add/subtract.</li>
+                                <li>&bull; Check answer &amp; try next.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive GeoGebra Embed sized for one-screen viewing -->
+                <div class="relative w-full h-[65vh] sm:h-[72vh] bg-white mt-2">
+                    <iframe
+                        src="https://www.geogebra.org/m/zqxsed3k"
+                        title="Let's Explore Addition & Subtraction on a Number Line! - GeoGebra Activity"
+                        class="absolute inset-0 w-full h-full border-0"
+                        allowfullscreen
+                        allow="fullscreen">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================================
+             PAGE 5: FRUIT BASKET GAME (SCRATCH)
+             Title: My Happy Fruit Garden!
+             URL: https://scratch.mit.edu/projects/1436306632
+             ================================================================= -->
+        <section id="page-5" class="page-section hidden w-full flex flex-col">
+            <div class="w-full flex flex-col bg-white/95 backdrop-blur-md border-3 border-amber-300 rounded-2xl shadow-lg overflow-hidden">
+                <!-- Compact Activity Heading Above Embedded Resource -->
+                <div class="flex items-center justify-between gap-2 px-3 py-2 sm:px-4 bg-amber-100/90 border-b border-amber-200">
+                    <div class="flex items-center gap-2">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-xl bg-amber-500 text-white text-lg shadow-sm">
+                            <i class="ph-fill ph-game-controller"></i>
+                        </span>
+                        <h2 class="text-lg sm:text-2xl font-bold text-amber-800">
+                            My Happy Fruit Garden!
+                        </h2>
+                    </div>
+                    <a href="https://scratch.mit.edu/projects/1436306632" target="_blank" rel="noopener noreferrer"
+                       class="toy-btn inline-flex items-center gap-1 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold px-2.5 py-1.5 rounded-lg">
+                        <i class="ph-bold ph-arrow-square-out text-sm"></i>
+                        <span>Scratch</span>
+                    </a>
+                </div>
+
+                <!-- Compact Student-Friendly Instruction Card (Orange/Yellow Theme with Fruit Icons) -->
+                <div class="activity-instruction-panel mx-2.5 mt-2 sm:mx-3.5 bg-amber-50 border border-amber-300 rounded-xl px-3.5 py-3 shadow-sm">
+                    <div class="activity-instruction-body">
+                        <div class="activity-instruction-intro">
+                            <div class="shrink-0 w-14 h-16 sm:w-16 sm:h-18 bg-white border border-amber-200 rounded-xl p-1 flex items-center justify-center shadow-2xs" aria-hidden="true">
+                                <svg viewBox="0 0 220 240" class="w-full h-full">
+                                    <use href="#storybookBunnyMascot" />
+                                </svg>
+                            </div>
+                            <div class="activity-instruction-copy">
+                                <h3 class="instr-heading font-bold text-amber-900 flex flex-wrap items-center gap-1">
+                                    <span>Welcome to My Happy Fruit Garden!</span>
+                                    <span aria-hidden="true">🍎🍊🍓</span>
+                                </h3>
+                                <p class="instr-desc font-medium text-slate-700">
+                                    Let's use our addition and subtraction skills to count fruits! Help collect the fruits in the basket based on the given mathematical questions.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="w-full bg-white/95 border border-amber-200 rounded-xl px-3.5 py-2.5">
+                            <span class="instr-todo-title font-bold uppercase tracking-wide text-amber-800 flex items-center gap-1 mb-1">
+                                <i class="ph-bold ph-list-checks"></i>
+                                <span>What to Do</span>
+                            </span>
+                            <ul class="instr-todo-list grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-0.5 font-semibold text-slate-700">
+                                <li>&bull; Read the math question.</li>
+                                <li>&bull; Select fruits as instructed.</li>
+                                <li>&bull; Count fruits in basket.</li>
+                                <li>&bull; Complete each challenge.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Responsive Scratch Embed Area sized for one-screen play -->
+                <div class="relative w-full h-[65vh] sm:h-[72vh] bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 flex items-center justify-center mt-2 overflow-hidden">
+                    <!-- Child-friendly fallback card if Scratch embed is unavailable or undergoing planned updates -->
+                    <div id="scratch-fallback-card" class="relative z-10 max-w-md mx-4 bg-white/95 border-2 border-amber-300 rounded-2xl p-5 text-center shadow-md">
+                        <div class="w-14 h-14 mx-auto mb-2.5 rounded-2xl bg-amber-500 text-white flex items-center justify-center text-3xl shadow-sm">
+                            <i class="ph-fill ph-game-controller"></i>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold text-amber-900 mb-1">
+                            My Happy Fruit Garden!
+                        </h3>
+                        <p class="text-xs sm:text-sm font-medium text-slate-700 mb-4 leading-relaxed">
+                            If Scratch shows a planned updates message or does not load inside this box, open the game in a new tab or try reloading it below.
+                        </p>
+                        <div class="flex flex-wrap items-center justify-center gap-2.5">
+                            <a href="https://scratch.mit.edu/projects/1436306632" target="_blank" rel="noopener noreferrer"
+                               class="toy-btn inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-white text-xs sm:text-sm font-bold px-4 py-2 rounded-xl border border-amber-600">
+                                <i class="ph-bold ph-arrow-square-out text-base"></i>
+                                <span>Open in New Tab</span>
+                            </a>
+                            <button type="button" onclick="reloadScratchEmbed()"
+                                class="toy-btn inline-flex items-center gap-1.5 bg-white hover:bg-amber-50 text-amber-800 text-xs sm:text-sm font-bold px-3.5 py-2 rounded-xl border-2 border-amber-300 cursor-pointer">
+                                <i class="ph-bold ph-arrow-clockwise text-base"></i>
+                                <span>Reload Game</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <iframe
+                        id="scratch-game-iframe"
+                        src="https://scratch.mit.edu/projects/1436306632/embed"
+                        title="My Happy Fruit Garden! - Scratch Project"
+                        class="absolute inset-0 z-20 w-full h-full border-0 bg-transparent"
+                        allowtransparency="true"
+                        frameborder="0"
+                        scrolling="no"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================================
+             PAGE 6: MATHEMATICS QUIZ (WAYGROUND)
+             Title: Happy Numbers Challenge!
+             URL: https://wayground.com/join?gc=52212307&source=liveDashboard
+             ================================================================= -->
+        <section id="page-6" class="page-section hidden w-full flex flex-col">
+            <div class="w-full flex flex-col bg-white/95 backdrop-blur-md border-3 border-emerald-300 rounded-2xl shadow-lg overflow-hidden">
+                <!-- Compact Activity Heading Above Embedded Resource -->
+                <div class="flex items-center justify-between gap-2 px-3 py-2 sm:px-4 bg-emerald-100/90 border-b border-emerald-200">
+                    <div class="flex items-center gap-2">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-xl bg-emerald-500 text-white text-lg shadow-sm">
+                            <i class="ph-fill ph-trophy"></i>
+                        </span>
+                        <h2 class="text-lg sm:text-2xl font-bold text-emerald-800">
+                            Happy Numbers Challenge!
+                        </h2>
+                    </div>
+
+                    <!-- "Start Quiz" Button opening in a new tab -->
+                    <a href="https://wayground.com/join?gc=52212307&source=liveDashboard"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="toy-btn inline-flex items-center gap-1.5 bg-emerald-500 hover:bg-emerald-600 text-white text-xs sm:text-sm font-bold px-4 py-1.5 rounded-xl border border-emerald-600">
+                        <i class="ph-fill ph-play-circle text-base"></i>
+                        <span>Start Quiz</span>
+                    </a>
+                </div>
+
+                <!-- Compact Student-Friendly Instruction Card (Green Theme with Trophy Icon) -->
+                <div class="activity-instruction-panel mx-2.5 mt-2 sm:mx-3.5 bg-emerald-50 border border-emerald-200 rounded-xl px-3.5 py-3 shadow-sm">
+                    <div class="activity-instruction-body">
+                        <div class="activity-instruction-intro">
+                            <div class="shrink-0 w-14 h-16 sm:w-16 sm:h-18 bg-white border border-emerald-200 rounded-xl p-1 flex items-center justify-center shadow-2xs" aria-hidden="true">
+                                <svg viewBox="0 0 220 240" class="w-full h-full">
+                                    <use href="#storybookBunnyMascot" />
+                                </svg>
+                            </div>
+                            <div class="activity-instruction-copy">
+                                <h3 class="instr-heading font-bold text-emerald-900">
+                                    Ready for the Challenge?
+                                </h3>
+                                <p class="instr-desc font-medium text-slate-700">
+                                    It's time to test your understanding! Answer the quiz based on what you have learned from the previous three activities.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="w-full bg-white/95 border border-emerald-200 rounded-xl px-3.5 py-2.5">
+                            <span class="instr-todo-title font-bold uppercase tracking-wide text-emerald-700 flex items-center gap-1 mb-1">
+                                <i class="ph-bold ph-list-checks"></i>
+                                <span>What to Do</span>
+                            </span>
+                            <ul class="instr-todo-list grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-0.5 font-semibold text-slate-700">
+                                <li>&bull; Read each question carefully.</li>
+                                <li>&bull; Choose the correct answer.</li>
+                                <li>&bull; Answer all questions.</li>
+                                <li>&bull; Check feedback after answering.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Direct Quiz Embed + Engaging Fallback Card -->
+                <div class="relative w-full h-[68vh] sm:h-[75vh] flex flex-col items-center justify-center bg-gradient-to-br from-emerald-50 via-teal-50 to-sky-50 mt-2">
+                    <!-- Fallback/Launch Card behind the iframe in case X-Frame-Options blocks embedding -->
+                    <div class="absolute inset-0 flex flex-col items-center justify-center p-5 text-center z-0">
+                        <div class="w-16 h-16 rounded-2xl bg-emerald-500 text-white flex items-center justify-center text-4xl shadow-md mb-3">
+                            <i class="ph-fill ph-exam"></i>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-emerald-900 mb-1.5">
+                            Ready for Happy Numbers Challenge!?
+                        </h3>
+                        <p class="text-sm sm:text-base text-slate-600 max-w-md mb-4">
+                            Click the big green button below to launch your quiz activity!
+                        </p>
+                        <a href="https://wayground.com/join?gc=52212307&source=liveDashboard"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="toy-btn inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white text-base sm:text-lg font-bold px-6 py-3 rounded-2xl border-2 border-white shadow-lg">
+                            <i class="ph-fill ph-rocket-launch text-2xl"></i>
+                            <span>Start Quiz</span>
+                        </a>
+                    </div>
+
+                    <!-- Direct Wayground Embed -->
+                    <iframe
+                        src="https://wayground.com/join?gc=52212307&source=liveDashboard"
+                        title="Happy Numbers Challenge! - Wayground Quiz"
+                        class="relative z-10 w-full h-full border-0 bg-transparent"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- =================================================================
+             PAGE 7: FINAL CONGRATULATIONS PAGE
+             ================================================================= -->
+        <section id="page-7" class="page-section hidden w-full py-1">
+            <div class="relative overflow-hidden w-full max-w-5xl mx-auto bg-white/95 backdrop-blur-md border-3 border-pink-300 rounded-3xl shadow-xl p-4 sm:p-6 md:p-7">
+                <!-- Soft Pastel Confetti, Stars, Clouds & Flowers Accents -->
+                <div aria-hidden="true" class="pointer-events-none select-none">
+                    <!-- Top Confetti & Stars -->
+                    <span class="hidden sm:inline-block absolute top-4 left-6 w-4 h-4 rounded-sm bg-amber-300 rotate-12"></span>
+                    <span class="hidden sm:inline-block absolute top-8 left-20 w-3 h-3 rounded-full bg-sky-300"></span>
+                    <span class="hidden sm:inline-block absolute top-5 right-24 w-4 h-3 rounded-sm bg-pink-300 -rotate-12"></span>
+                    <span class="hidden sm:inline-block absolute top-10 right-8 w-3.5 h-3.5 rounded-full bg-purple-300"></span>
+                    <i class="ph-fill ph-star text-amber-400 text-2xl absolute top-4 right-14 opacity-85"></i>
+                    <i class="ph-fill ph-sparkle text-pink-400 text-xl absolute top-14 left-12 opacity-85"></i>
+
+                    <!-- Mini Storybook Cloud & Flower Corner Accents -->
+                    <svg class="hidden md:block absolute -top-2 left-32 w-24 h-12 opacity-85" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M24 46 H92 A12 12 0 0 0 92 22 A18 18 0 0 0 58 16 A15 15 0 0 0 28 24 A11 11 0 0 0 24 46 Z" fill="#eef8ff" stroke="#bae6fd" stroke-width="2" />
+                    </svg>
+                    <svg class="hidden sm:block absolute bottom-3 left-5 w-11 h-11 opacity-90" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="30" cy="16" r="7" fill="#fbcfe8" />
+                        <circle cx="44" cy="26" r="7" fill="#fbcfe8" />
+                        <circle cx="39" cy="42" r="7" fill="#fbcfe8" />
+                        <circle cx="21" cy="42" r="7" fill="#fbcfe8" />
+                        <circle cx="16" cy="26" r="7" fill="#fbcfe8" />
+                        <circle cx="30" cy="30" r="6.5" fill="#fde047" />
+                    </svg>
+                    <svg class="hidden sm:block absolute bottom-3 right-5 w-11 h-11 opacity-90" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="30" cy="16" r="7" fill="#ddd6fe" />
+                        <circle cx="44" cy="26" r="7" fill="#ddd6fe" />
+                        <circle cx="39" cy="42" r="7" fill="#ddd6fe" />
+                        <circle cx="21" cy="42" r="7" fill="#ddd6fe" />
+                        <circle cx="16" cy="26" r="7" fill="#ddd6fe" />
+                        <circle cx="30" cy="30" r="6.5" fill="#fde047" />
+                    </svg>
+                </div>
+
+                <!-- Main Celebration Heading -->
+                <div class="relative z-10 text-center mb-5">
+                    <div class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-100 via-pink-100 to-purple-100 border-2 border-amber-300 px-4 py-1.5 rounded-2xl shadow-sm mb-2">
+                        <span class="text-xl sm:text-2xl" aria-hidden="true">🎉</span>
+                        <h2 class="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 bg-clip-text text-transparent">
+                            HOORAY! YOU DID IT!
+                        </h2>
+                        <span class="text-xl sm:text-2xl" aria-hidden="true">🎉</span>
+                    </div>
+
+                    <p class="text-base sm:text-xl font-bold text-slate-800 max-w-2xl mx-auto leading-snug">
+                        Congratulations! You have successfully completed all the learning activities!
+                    </p>
+                    <p class="mt-1.5 text-sm sm:text-base font-medium text-slate-700 max-w-2xl mx-auto leading-relaxed">
+                        You are a wonderful little mathematician! Keep practising addition and subtraction. Every day is a new chance to learn something amazing!
+                    </p>
+                </div>
+
+                <!-- Centerpiece: White Storybook Bunny + My Learning Journey Checklist -->
+                <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                    <!-- Cute Hand-Drawn Style White Bunny Mascot Holding a Colourful Star -->
+                    <div class="md:col-span-5 flex flex-col items-center justify-center bg-gradient-to-b from-sky-50 to-pink-50/70 border-2 border-sky-200 rounded-3xl p-4 shadow-sm">
+                        <div class="bunny-celebrate w-44 h-48 sm:w-52 sm:h-56 flex items-center justify-center">
+                            <svg viewBox="0 0 220 240" class="w-full h-full" aria-label="Cute white bunny holding a colourful star">
+                                <use href="#storybookBunnyMascot" />
+                            </svg>
+                        </div>
+                        <span class="mt-1 inline-flex items-center gap-1.5 bg-white border border-pink-200 text-pink-700 font-bold text-xs sm:text-sm px-3.5 py-1 rounded-full shadow-sm">
+                            <i class="ph-fill ph-heart text-pink-500"></i>
+                            <span>Math Star Buddy</span>
+                        </span>
+                    </div>
+
+                    <!-- MY LEARNING JOURNEY Achievement Display -->
+                    <div class="md:col-span-7 bg-amber-50/90 border-2 border-amber-300 rounded-3xl p-4 sm:p-5 shadow-sm">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="w-9 h-9 rounded-xl bg-amber-500 text-white flex items-center justify-center text-xl shadow-sm">
+                                <i class="ph-fill ph-medal"></i>
+                            </span>
+                            <h3 class="text-lg sm:text-2xl font-bold text-amber-900">
+                                MY LEARNING JOURNEY
+                            </h3>
+                        </div>
+
+                        <ul class="space-y-2.5">
+                            <li class="flex items-center gap-3 bg-white border-2 border-purple-200 rounded-2xl px-3.5 py-2.5 shadow-sm">
+                                <span class="shrink-0 w-7 h-7 rounded-full bg-purple-500 text-white font-bold text-sm flex items-center justify-center">
+                                    &#10003;
+                                </span>
+                                <i class="ph-fill ph-book-open-text text-purple-600 text-xl shrink-0"></i>
+                                <span class="text-sm sm:text-base font-bold text-slate-800">
+                                    Learned addition and subtraction.
+                                </span>
+                            </li>
+
+                            <li class="flex items-center gap-3 bg-white border-2 border-sky-200 rounded-2xl px-3.5 py-2.5 shadow-sm">
+                                <span class="shrink-0 w-7 h-7 rounded-full bg-sky-500 text-white font-bold text-sm flex items-center justify-center">
+                                    &#10003;
+                                </span>
+                                <i class="ph-fill ph-arrows-left-right text-sky-600 text-xl shrink-0"></i>
+                                <span class="text-sm sm:text-base font-bold text-slate-800">
+                                    Explored the number line.
+                                </span>
+                            </li>
+
+                            <li class="flex items-center gap-3 bg-white border-2 border-amber-200 rounded-2xl px-3.5 py-2.5 shadow-sm">
+                                <span class="shrink-0 w-7 h-7 rounded-full bg-amber-500 text-white font-bold text-sm flex items-center justify-center">
+                                    &#10003;
+                                </span>
+                                <i class="ph-fill ph-game-controller text-amber-600 text-xl shrink-0"></i>
+                                <span class="text-sm sm:text-base font-bold text-slate-800">
+                                    Completed the fruit basket game.
+                                </span>
+                            </li>
+
+                            <li class="flex items-center gap-3 bg-white border-2 border-emerald-200 rounded-2xl px-3.5 py-2.5 shadow-sm">
+                                <span class="shrink-0 w-7 h-7 rounded-full bg-emerald-500 text-white font-bold text-sm flex items-center justify-center">
+                                    &#10003;
+                                </span>
+                                <i class="ph-fill ph-trophy text-emerald-600 text-xl shrink-0"></i>
+                                <span class="text-sm sm:text-base font-bold text-slate-800">
+                                    Finished the mathematics quiz.
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Prominent Restart Learning Button -->
+                <div class="relative z-10 mt-6 flex flex-col items-center justify-center">
+                    <button onclick="restartLearningJourney()"
+                        class="toy-btn inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 hover:from-orange-600 hover:via-pink-600 hover:to-purple-700 text-white font-bold text-base sm:text-xl px-7 py-3.5 rounded-2xl border-2 border-white shadow-lg cursor-pointer">
+                        <span class="text-xl sm:text-2xl leading-none" aria-hidden="true">&#8635;</span>
+                        <span>START LEARNING AGAIN</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =====================================================================
+         COMPACT BOTTOM PREVIOUS / NEXT NAVIGATION BAR
+         ===================================================================== -->
+    <footer class="sticky bottom-0 z-40 px-2.5 pb-1.5 sm:px-4 sm:pb-2 pointer-events-none">
+        <div id="bottom-nav-controls" class="max-w-4xl mx-auto flex items-center justify-between gap-2">
+            <!-- Previous Button -->
+            <button id="prev-btn" onclick="navigateTo(currentPage - 1)"
+                class="pointer-events-auto toy-btn flex items-center gap-1.5 bg-white hover:bg-orange-50 text-orange-600 border-2 border-orange-300 font-bold text-xs sm:text-sm px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl cursor-pointer disabled:opacity-40 disabled:pointer-events-none">
+                <i class="ph-bold ph-arrow-left text-base"></i>
+                <span>Previous</span>
+            </button>
+
+            <!-- Kid-Friendly Step Dots (8 Pages) -->
+            <div class="pointer-events-auto hidden sm:flex items-center gap-2 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-xl border-2 border-pink-200 shadow-sm">
+                <button onclick="navigateTo(0)" aria-label="Go to Home" class="step-dot w-3 h-3 rounded-full transition-all cursor-pointer"></button>
+                <button onclick="navigateTo(1)" aria-label="Go to About This Learning Resource" class="step-dot w-3 h-3 rounded-full transition-all cursor-pointer"></button>
+                <button onclick="navigateTo(2)" aria-label="Go to Learning Sequence" class="step-dot w-3 h-3 rounded-full transition-all cursor-pointer"></button>
+                <button onclick="navigateTo(3)" aria-label="Go to Introduction" class="step-dot w-3 h-3 rounded-full transition-all cursor-pointer"></button>
+                <button onclick="navigateTo(4)" aria-label="Go to Number Line" class="step-dot w-3 h-3 rounded-full transition-all cursor-pointer"></button>
+                <button onclick="navigateTo(5)" aria-label="Go to Fruit Basket Game" class="step-dot w-3 h-3 rounded-full transition-all cursor-pointer"></button>
+                <button onclick="navigateTo(6)" aria-label="Go to Mathematics Quiz" class="step-dot w-3 h-3 rounded-full transition-all cursor-pointer"></button>
+                <button onclick="navigateTo(7)" aria-label="Go to Congratulations" class="step-dot w-3 h-3 rounded-full transition-all cursor-pointer"></button>
+            </div>
+
+            <!-- Next Button -->
+            <button id="next-btn" onclick="navigateTo(currentPage + 1)"
+                class="pointer-events-auto toy-btn flex items-center gap-1.5 bg-orange-500 hover:bg-orange-600 text-white border-2 border-orange-600 font-bold text-xs sm:text-sm px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl cursor-pointer disabled:opacity-40 disabled:pointer-events-none">
+                <span>Next</span>
+                <i class="ph-bold ph-arrow-right text-base"></i>
+            </button>
+        </div>
+    </footer>
+
+    <!-- =====================================================================
+         NAVIGATION & INTERACTIVITY SCRIPT
+         ===================================================================== -->
+    <script>
+        let currentPage = 0;
+        const TOTAL_PAGES = 8;
+
+        // =====================================================================
+        // SHARED CHILD-FRIENDLY AUDIO SYSTEM (Web Audio API - Very Soft Music Box)
+        // =====================================================================
+        const audioState = {
+            ctx: null,
+            musicGain: null,
+            musicLowpass: null,
+            sfxGain: null,
+            musicEnabled: false,      // Respects browser autoplay rules until user clicks Play
+            sfxEnabled: true,
+            musicVolume: 0.12,        // Very soft default (~12% within 10-15% soothing range)
+            sfxVolume: 0.65,          // Clear, pleasant SFX default (~65%)
+            schedulerTimer: null,
+            nextNoteTime: 0,
+            stepIndex: 0,
+            lastSfxTime: 0,
+            storageKey: 'math_garden_audio_prefs_v2'
+        };
+
+        // Very soft, gentle, slow music-box / lullaby phrase in C major (no beat, no bass pulse, no sudden jumps)
+        const soothingMusicBoxNotes = [
+            { freq: 523.25, dur: 1.05, harmonic: 1046.50, step: 0.72 }, // C5 gentle chime
+            { freq: 659.25, dur: 1.05, harmonic: 1318.51, step: 0.72 }, // E5 soft bell
+            { freq: 783.99, dur: 1.25, harmonic: null,    step: 0.85 }, // G5 calm rest
+            { freq: 659.25, dur: 1.05, harmonic: 1318.51, step: 0.72 }, // E5
+            { freq: 587.33, dur: 1.05, harmonic: null,    step: 0.72 }, // D5
+            { freq: 493.88, dur: 1.35, harmonic: 987.77,  step: 0.90 }, // B4 peaceful resolve
+            { freq: 523.25, dur: 1.15, harmonic: 1046.50, step: 0.78 }, // C5
+            { freq: 587.33, dur: 1.05, harmonic: null,    step: 0.72 }, // D5
+            { freq: 659.25, dur: 1.10, harmonic: 1318.51, step: 0.76 }, // E5
+            { freq: 783.99, dur: 1.15, harmonic: null,    step: 0.80 }, // G5
+            { freq: 698.46, dur: 1.15, harmonic: null,    step: 0.80 }, // F5 soft breath
+            { freq: 659.25, dur: 1.45, harmonic: 1318.51, step: 0.96 }  // E5 gentle linger
+        ];
+
+        function saveAudioPreferences() {
+            try {
+                const payload = {
+                    musicEnabled: Boolean(audioState.musicEnabled),
+                    sfxEnabled: Boolean(audioState.sfxEnabled),
+                    musicVolume: Number(audioState.musicVolume),
+                    sfxVolume: Number(audioState.sfxVolume)
+                };
+                window.sessionStorage.setItem(audioState.storageKey, JSON.stringify(payload));
+            } catch (err) {
+                // Ignore storage restrictions gracefully
+            }
+        }
+
+        function loadAudioPreferences() {
+            try {
+                const raw = window.sessionStorage.getItem(audioState.storageKey);
+                if (!raw) return;
+                const parsed = JSON.parse(raw);
+                if (typeof parsed.sfxEnabled === 'boolean') {
+                    audioState.sfxEnabled = parsed.sfxEnabled;
+                }
+                if (typeof parsed.musicVolume === 'number' && !Number.isNaN(parsed.musicVolume)) {
+                    audioState.musicVolume = Math.max(0, Math.min(1, parsed.musicVolume));
+                }
+                if (typeof parsed.sfxVolume === 'number' && !Number.isNaN(parsed.sfxVolume)) {
+                    audioState.sfxVolume = Math.max(0, Math.min(1, parsed.sfxVolume));
+                }
+                if (typeof parsed.musicEnabled === 'boolean') {
+                    audioState.musicEnabled = parsed.musicEnabled;
+                }
+
+                const musicSlider = document.getElementById('music-volume-slider');
+                const musicLabel = document.getElementById('music-volume-label');
+                const musicPct = Math.round(audioState.musicVolume * 100);
+                if (musicSlider) musicSlider.value = String(musicPct);
+                if (musicLabel) musicLabel.textContent = `${musicPct}%`;
+
+                const sfxSlider = document.getElementById('sfx-volume-slider');
+                const sfxLabel = document.getElementById('sfx-volume-label');
+                const sfxPct = Math.round(audioState.sfxVolume * 100);
+                if (sfxSlider) sfxSlider.value = String(sfxPct);
+                if (sfxLabel) sfxLabel.textContent = `${sfxPct}%`;
+            } catch (err) {
+                // Ignore malformed storage data
+            }
+        }
+
+        function ensureAudioContext() {
+            try {
+                if (!audioState.ctx) {
+                    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                    if (!AudioCtx) return null;
+                    audioState.ctx = new AudioCtx();
+
+                    // Gentle low-pass filter keeps the music-box timbre warm, soft, and soothing
+                    audioState.musicLowpass = audioState.ctx.createBiquadFilter();
+                    audioState.musicLowpass.type = 'lowpass';
+                    audioState.musicLowpass.frequency.setValueAtTime(1450, audioState.ctx.currentTime);
+                    audioState.musicLowpass.Q.setValueAtTime(0.6, audioState.ctx.currentTime);
+
+                    audioState.musicGain = audioState.ctx.createGain();
+                    audioState.musicGain.gain.setValueAtTime(
+                        audioState.musicEnabled ? audioState.musicVolume : 0,
+                        audioState.ctx.currentTime
+                    );
+                    audioState.musicLowpass.connect(audioState.musicGain);
+                    audioState.musicGain.connect(audioState.ctx.destination);
+
+                    audioState.sfxGain = audioState.ctx.createGain();
+                    audioState.sfxGain.gain.setValueAtTime(
+                        audioState.sfxEnabled ? audioState.sfxVolume : 0,
+                        audioState.ctx.currentTime
+                    );
+                    audioState.sfxGain.connect(audioState.ctx.destination);
+                }
+
+                if (audioState.ctx.state === 'suspended') {
+                    const resumePromise = audioState.ctx.resume();
+                    if (resumePromise && typeof resumePromise.catch === 'function') {
+                        resumePromise.catch(() => {});
+                    }
+                }
+
+                return audioState.ctx;
+            } catch (err) {
+                console.warn('Audio initialization error:', err);
+                return null;
+            }
+        }
+
+        function playTone({
+            freq = 523.25,
+            endFreq = null,
+            duration = 0.25,
+            type = 'sine',
+            peakGain = 0.25,
+            delay = 0,
+            channel = 'sfx',
+            scheduledStartTime = null
+        }) {
+            try {
+                const ctx = ensureAudioContext();
+                if (!ctx) return;
+
+                const targetBus = channel === 'music' ? audioState.musicLowpass : audioState.sfxGain;
+                if (!targetBus) return;
+
+                const startTime = scheduledStartTime !== null
+                    ? Math.max(ctx.currentTime + 0.02, scheduledStartTime)
+                    : ctx.currentTime + Math.max(0, delay);
+
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, startTime);
+                if (endFreq !== null) {
+                    osc.frequency.exponentialRampToValueAtTime(Math.max(40, endFreq), startTime + duration);
+                }
+
+                // Soft attack and smooth decay to prevent clicks or harshness
+                const attack = channel === 'music'
+                    ? Math.min(0.06, duration * 0.2)
+                    : Math.min(0.025, duration * 0.25);
+                gain.gain.setValueAtTime(0.0001, startTime);
+                gain.gain.linearRampToValueAtTime(peakGain, startTime + attack);
+                gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+
+                osc.connect(gain);
+                gain.connect(targetBus);
+
+                osc.start(startTime);
+                osc.stop(startTime + duration + 0.04);
+            } catch (err) {
+                console.warn('Tone playback error:', err);
+            }
+        }
+
+        function canPlaySfx(minGapMs = 65) {
+            if (!audioState.sfxEnabled || audioState.sfxVolume <= 0) return false;
+            const now = Date.now();
+            if (now - audioState.lastSfxTime < minGapMs) return false;
+            audioState.lastSfxTime = now;
+            return true;
+        }
+
+        // 1. Button & interactive element click sound
+        function playNavClickSound() {
+            if (!canPlaySfx(60)) return;
+            playTone({ freq: 587.33, endFreq: 740, duration: 0.09, type: 'triangle', peakGain: 0.24, channel: 'sfx' });
+        }
+
+        // 2. Gentle pop / move marker sound for interactive controls & sliders
+        function playMoveMarkerSound() {
+            if (!canPlaySfx(80)) return;
+            playTone({ freq: 440, endFreq: 620, duration: 0.08, type: 'sine', peakGain: 0.2, channel: 'sfx' });
+        }
+
+        // 3. Pleasant success chime (correct answer / starting learning)
+        function playSuccessChime() {
+            if (!canPlaySfx(120)) return;
+            const notes = [523.25, 659.25, 783.99, 1046.50];
+            notes.forEach((freq, idx) => {
+                playTone({ freq, duration: 0.22, type: 'triangle', peakGain: 0.26, delay: idx * 0.085, channel: 'sfx' });
+            });
+        }
+
+        // 4. Gentle encouraging feedback sound (incorrect / retry prompt)
+        function playGentleFeedbackSound() {
+            if (!canPlaySfx(140)) return;
+            playTone({ freq: 440, endFreq: 392, duration: 0.16, type: 'sine', peakGain: 0.22, delay: 0, channel: 'sfx' });
+            playTone({ freq: 392, endFreq: 440, duration: 0.18, type: 'sine', peakGain: 0.2, delay: 0.16, channel: 'sfx' });
+        }
+
+        // 5. Cheerful completion fanfare when finishing activities / Congratulations page
+        function playCelebrationFanfare() {
+            if (!canPlaySfx(220)) return;
+            const melody = [
+                { freq: 523.25, delay: 0.00, dur: 0.18, type: 'triangle', peak: 0.28 },
+                { freq: 659.25, delay: 0.14, dur: 0.18, type: 'triangle', peak: 0.28 },
+                { freq: 783.99, delay: 0.28, dur: 0.20, type: 'triangle', peak: 0.28 },
+                { freq: 1046.50, delay: 0.44, dur: 0.36, type: 'triangle', peak: 0.32 },
+                { freq: 1318.51, delay: 0.68, dur: 0.16, type: 'sine', peak: 0.2 },
+                { freq: 1567.98, delay: 0.80, dur: 0.24, type: 'sine', peak: 0.2 }
+            ];
+            melody.forEach((n) => {
+                playTone({
+                    freq: n.freq,
+                    duration: n.dur,
+                    type: n.type,
+                    peakGain: n.peak,
+                    delay: n.delay,
+                    channel: 'sfx'
+                });
+            });
+        }
+
+        // 6. Soft transition sound when restarting learning
+        function playRestartTransitionSound() {
+            if (!canPlaySfx(140)) return;
+            try {
+                playTone({ freq: 659.25, endFreq: 523.25, duration: 0.16, type: 'sine', peakGain: 0.22, delay: 0, channel: 'sfx' });
+                playTone({ freq: 783.99, endFreq: 1046.50, duration: 0.22, type: 'triangle', peakGain: 0.24, delay: 0.14, channel: 'sfx' });
+            } catch (err) {
+                console.warn('Restart transition sound error:', err);
+            }
+        }
+
+        // Look-ahead Web Audio scheduler for very soft, seamless music-box looping across pages
+        function runMusicLookahead() {
+            if (!audioState.musicEnabled || !audioState.ctx) return;
+
+            const lookAheadSeconds = 0.35;
+            while (audioState.nextNoteTime < audioState.ctx.currentTime + lookAheadSeconds) {
+                const entry = soothingMusicBoxNotes[audioState.stepIndex % soothingMusicBoxNotes.length];
+                audioState.stepIndex += 1;
+
+                // Soft music-box sine tone with gentle long release
+                playTone({
+                    freq: entry.freq,
+                    duration: entry.dur,
+                    type: 'sine',
+                    peakGain: 0.24,
+                    channel: 'music',
+                    scheduledStartTime: audioState.nextNoteTime
+                });
+
+                // Subtle high overtone shimmer for a delicate music-box feel
+                if (entry.harmonic) {
+                    playTone({
+                        freq: entry.harmonic,
+                        duration: entry.dur * 0.75,
+                        type: 'sine',
+                        peakGain: 0.055,
+                        channel: 'music',
+                        scheduledStartTime: audioState.nextNoteTime + 0.02
+                    });
+                }
+
+                audioState.nextNoteTime += entry.step;
+            }
+        }
+
+        function startBackgroundMusic() {
+            try {
+                const ctx = ensureAudioContext();
+                if (!ctx) return;
+
+                // Prevent duplicate timers or overlapping music loops
+                if (audioState.schedulerTimer) {
+                    clearInterval(audioState.schedulerTimer);
+                    audioState.schedulerTimer = null;
+                }
+
+                audioState.musicEnabled = true;
+                if (audioState.musicGain) {
+                    audioState.musicGain.gain.setValueAtTime(audioState.musicVolume, ctx.currentTime);
+                }
+
+                if (!audioState.nextNoteTime || audioState.nextNoteTime < ctx.currentTime) {
+                    audioState.nextNoteTime = ctx.currentTime + 0.08;
+                }
+
+                runMusicLookahead();
+                audioState.schedulerTimer = window.setInterval(runMusicLookahead, 120);
+                saveAudioPreferences();
+                updateSoundUI();
+            } catch (err) {
+                console.warn('Could not start background music:', err);
+            }
+        }
+
+        function stopBackgroundMusic() {
+            audioState.musicEnabled = false;
+            if (audioState.schedulerTimer) {
+                clearInterval(audioState.schedulerTimer);
+                audioState.schedulerTimer = null;
+            }
+            if (audioState.musicGain && audioState.ctx) {
+                audioState.musicGain.gain.setValueAtTime(0, audioState.ctx.currentTime);
+            }
+            saveAudioPreferences();
+            updateSoundUI();
+        }
+
+        function toggleBackgroundMusic() {
+            if (audioState.musicEnabled) {
+                stopBackgroundMusic();
+                playNavClickSound();
+            } else {
+                startBackgroundMusic();
+                playNavClickSound();
+            }
+        }
+
+        function toggleSoundEffects() {
+            audioState.sfxEnabled = !audioState.sfxEnabled;
+            ensureAudioContext();
+            if (audioState.sfxGain && audioState.ctx) {
+                audioState.sfxGain.gain.setValueAtTime(
+                    audioState.sfxEnabled ? audioState.sfxVolume : 0,
+                    audioState.ctx.currentTime
+                );
+            }
+            if (audioState.sfxEnabled) {
+                playNavClickSound();
+            }
+            saveAudioPreferences();
+            updateSoundUI();
+        }
+
+        function updateMusicVolume(percentValue) {
+            const num = Math.max(0, Math.min(100, Number(percentValue) || 0));
+            audioState.musicVolume = num / 100;
+            ensureAudioContext();
+            if (audioState.musicGain && audioState.ctx) {
+                audioState.musicGain.gain.setValueAtTime(
+                    audioState.musicEnabled ? audioState.musicVolume : 0,
+                    audioState.ctx.currentTime
+                );
+            }
+            const label = document.getElementById('music-volume-label');
+            if (label) {
+                label.textContent = `${num}%`;
+            }
+            saveAudioPreferences();
+            updateSoundUI();
+        }
+
+        function updateSfxVolume(percentValue) {
+            const num = Math.max(0, Math.min(100, Number(percentValue) || 0));
+            audioState.sfxVolume = num / 100;
+            ensureAudioContext();
+            if (audioState.sfxGain && audioState.ctx) {
+                audioState.sfxGain.gain.setValueAtTime(
+                    audioState.sfxEnabled ? audioState.sfxVolume : 0,
+                    audioState.ctx.currentTime
+                );
+            }
+            const label = document.getElementById('sfx-volume-label');
+            if (label) {
+                label.textContent = `${num}%`;
+            }
+            playMoveMarkerSound();
+            saveAudioPreferences();
+            updateSoundUI();
+        }
+
+        function updateSoundUI() {
+            const musicBtn = document.getElementById('music-toggle-btn');
+            const playPauseBtn = document.getElementById('music-play-pause-btn');
+            const playPauseIcon = document.getElementById('music-play-pause-icon');
+            const playPauseLabel = document.getElementById('music-play-pause-label');
+            const sfxBtn = document.getElementById('sfx-toggle-btn');
+            const headerIcon = document.getElementById('sound-header-icon');
+            const sfxLabelIcon = document.getElementById('sfx-label-icon');
+
+            if (musicBtn) {
+                if (audioState.musicEnabled) {
+                    musicBtn.textContent = 'ON';
+                    musicBtn.className = 'toy-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-500 text-white border border-indigo-600 cursor-pointer';
+                } else {
+                    musicBtn.textContent = 'OFF';
+                    musicBtn.className = 'toy-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 border border-slate-300 cursor-pointer';
+                }
+            }
+
+            if (playPauseBtn && playPauseIcon && playPauseLabel) {
+                if (audioState.musicEnabled) {
+                    playPauseIcon.textContent = '❚❚';
+                    playPauseLabel.textContent = 'Pause Music';
+                    playPauseBtn.className = 'toy-btn w-full flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold bg-amber-500 hover:bg-amber-600 text-white border border-amber-600 cursor-pointer';
+                } else {
+                    playPauseIcon.textContent = '▶';
+                    playPauseLabel.textContent = 'Play Music';
+                    playPauseBtn.className = 'toy-btn w-full flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold bg-indigo-500 hover:bg-indigo-600 text-white border border-indigo-600 cursor-pointer';
+                }
+            }
+
+            if (sfxBtn) {
+                if (audioState.sfxEnabled) {
+                    sfxBtn.textContent = 'ON';
+                    sfxBtn.className = 'toy-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 cursor-pointer';
+                } else {
+                    sfxBtn.textContent = 'OFF';
+                    sfxBtn.className = 'toy-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-rose-100 text-rose-800 border border-rose-300 cursor-pointer';
+                }
+            }
+
+            const anySoundActive = (audioState.sfxEnabled && audioState.sfxVolume > 0) ||
+                                   (audioState.musicEnabled && audioState.musicVolume > 0);
+            if (headerIcon) {
+                headerIcon.textContent = anySoundActive ? (audioState.musicEnabled ? '🎵' : '🔊') : '🔇';
+            }
+            if (sfxLabelIcon) {
+                sfxLabelIcon.textContent = (audioState.sfxEnabled && audioState.sfxVolume > 0) ? '🔊' : '🔇';
+            }
+        }
+
+        function toggleSoundPopover(event) {
+            if (event) event.stopPropagation();
+            closeMobileNavMenu();
+            const popover = document.getElementById('sound-controls-popover');
+            const toggleBtn = document.getElementById('sound-menu-toggle');
+            if (!popover) return;
+            const willOpen = popover.classList.contains('hidden');
+            popover.classList.toggle('hidden', !willOpen);
+            if (toggleBtn) {
+                toggleBtn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+            }
+            if (willOpen) {
+                playNavClickSound();
+            }
+        }
+
+        function closeSoundPopover() {
+            const popover = document.getElementById('sound-controls-popover');
+            const toggleBtn = document.getElementById('sound-menu-toggle');
+            if (popover) popover.classList.add('hidden');
+            if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+        }
+
+        function toggleMobileNavMenu(event) {
+            if (event) event.stopPropagation();
+            closeSoundPopover();
+            const drawer = document.getElementById('mobile-nav-drawer');
+            const toggleBtn = document.getElementById('mobile-nav-toggle');
+            const icon = document.getElementById('mobile-nav-icon');
+            if (!drawer) return;
+            const willOpen = drawer.classList.contains('hidden');
+            drawer.classList.toggle('hidden', !willOpen);
+            if (toggleBtn) {
+                toggleBtn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+            }
+            if (icon) {
+                icon.className = willOpen ? 'ph-bold ph-x text-base' : 'ph-bold ph-list text-base';
+            }
+            if (willOpen) {
+                playNavClickSound();
+            }
+        }
+
+        function closeMobileNavMenu() {
+            const drawer = document.getElementById('mobile-nav-drawer');
+            const toggleBtn = document.getElementById('mobile-nav-toggle');
+            const icon = document.getElementById('mobile-nav-icon');
+            if (drawer) drawer.classList.add('hidden');
+            if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+            if (icon) icon.className = 'ph-bold ph-list text-base';
+        }
+
+        document.addEventListener('click', (e) => {
+            const popover = document.getElementById('sound-controls-popover');
+            const toggleBtn = document.getElementById('sound-menu-toggle');
+            if (popover && !popover.classList.contains('hidden')) {
+                if (!popover.contains(e.target) && (!toggleBtn || !toggleBtn.contains(e.target))) {
+                    closeSoundPopover();
+                }
+            }
+
+            const drawer = document.getElementById('mobile-nav-drawer');
+            const mobileBtn = document.getElementById('mobile-nav-toggle');
+            if (drawer && !drawer.classList.contains('hidden')) {
+                if (!drawer.contains(e.target) && (!mobileBtn || !mobileBtn.contains(e.target))) {
+                    closeMobileNavMenu();
+                }
+            }
+        });
+
+        // Play subtle click/move sound when interacting with page cards, step dots, or sliders
+        document.addEventListener('change', (e) => {
+            try {
+                if (e.target && e.target.type === 'range' && e.target.id !== 'master-volume-slider') {
+                    playMoveMarkerSound();
+                }
+            } catch (err) {
+                console.warn('Range change sound skipped:', err);
+            }
+        });
+
+        // Pastel color themes per page index (0..7) for desktop nav, mobile nav, and step dots
+        const navThemes = [
+            {
+                active: 'bg-orange-400 text-white border-2 border-orange-500 nav-pill-active',
+                inactive: 'bg-orange-50 hover:bg-orange-100 text-orange-800 border border-orange-200',
+                dotActive: 'bg-orange-500 scale-125',
+                dotInactive: 'bg-orange-200 hover:bg-orange-300'
+            },
+            {
+                active: 'bg-pink-500 text-white border-2 border-pink-600 nav-pill-active',
+                inactive: 'bg-pink-50 hover:bg-pink-100 text-pink-800 border border-pink-200',
+                dotActive: 'bg-pink-500 scale-125',
+                dotInactive: 'bg-pink-200 hover:bg-pink-300'
+            },
+            {
+                active: 'bg-rose-500 text-white border-2 border-rose-600 nav-pill-active',
+                inactive: 'bg-rose-50 hover:bg-rose-100 text-rose-800 border border-rose-200',
+                dotActive: 'bg-rose-500 scale-125',
+                dotInactive: 'bg-rose-200 hover:bg-rose-300'
+            },
+            {
+                active: 'bg-purple-500 text-white border-2 border-purple-600 nav-pill-active',
+                inactive: 'bg-purple-50 hover:bg-purple-100 text-purple-800 border border-purple-200',
+                dotActive: 'bg-purple-500 scale-125',
+                dotInactive: 'bg-purple-200 hover:bg-purple-300'
+            },
+            {
+                active: 'bg-sky-500 text-white border-2 border-sky-600 nav-pill-active',
+                inactive: 'bg-sky-50 hover:bg-sky-100 text-sky-800 border border-sky-200',
+                dotActive: 'bg-sky-500 scale-125',
+                dotInactive: 'bg-sky-200 hover:bg-sky-300'
+            },
+            {
+                active: 'bg-amber-500 text-white border-2 border-amber-600 nav-pill-active',
+                inactive: 'bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200',
+                dotActive: 'bg-amber-500 scale-125',
+                dotInactive: 'bg-amber-200 hover:bg-amber-300'
+            },
+            {
+                active: 'bg-emerald-500 text-white border-2 border-emerald-600 nav-pill-active',
+                inactive: 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200',
+                dotActive: 'bg-emerald-500 scale-125',
+                dotInactive: 'bg-emerald-200 hover:bg-emerald-300'
+            },
+            {
+                active: 'bg-indigo-500 text-white border-2 border-indigo-600 nav-pill-active',
+                inactive: 'bg-indigo-50 hover:bg-indigo-100 text-indigo-800 border border-indigo-200',
+                dotActive: 'bg-indigo-500 scale-125',
+                dotInactive: 'bg-indigo-200 hover:bg-indigo-300'
+            }
+        ];
+
+        // Global navigation controller used across all nav buttons, mobile drawer, step dots, and Previous/Next
+        function navigateTo(targetIndex, options = {}) {
+            const clampedIndex = Math.max(0, Math.min(TOTAL_PAGES - 1, Number(targetIndex) || 0));
+            const previousPage = currentPage;
+            currentPage = clampedIndex;
+
+            // Show only the selected page section
+            for (let i = 0; i < TOTAL_PAGES; i++) {
+                const section = document.getElementById(`page-${i}`);
+                if (section) {
+                    section.classList.toggle('hidden', i !== currentPage);
+                }
+
+                const theme = navThemes[i] || navThemes[0];
+                const isActive = i === currentPage;
+
+                // Desktop navigation tab styling
+                const navBtn = document.getElementById(`nav-${i}`);
+                if (navBtn) {
+                    navBtn.className = `nav-item toy-btn flex items-center gap-1 px-2 py-1 rounded-xl text-[11px] xl:text-xs font-bold transition-colors cursor-pointer ${
+                        isActive ? theme.active : theme.inactive
+                    }`;
+                    navBtn.setAttribute('aria-current', isActive ? 'page' : 'false');
+                }
+
+                // Mobile drawer navigation button styling
+                const mobileNavBtn = document.getElementById(`mobile-nav-${i}`);
+                if (mobileNavBtn) {
+                    mobileNavBtn.className = `mobile-nav-item toy-btn w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs sm:text-sm font-bold text-left cursor-pointer ${
+                        isActive ? theme.active : theme.inactive
+                    }`;
+                    mobileNavBtn.setAttribute('aria-current', isActive ? 'page' : 'false');
+                }
+            }
+
+            // Update mobile active page indicator label
+            const activeDesktopBtn = document.getElementById(`nav-${currentPage}`);
+            const activeLabelSpan = activeDesktopBtn ? activeDesktopBtn.querySelector('span') : null;
+            const mobileBadge = document.getElementById('mobile-current-page-badge');
+            if (mobileBadge && activeLabelSpan) {
+                mobileBadge.textContent = activeLabelSpan.textContent;
+            }
+
+            // Update step indicator dots
+            const dots = document.querySelectorAll('.step-dot');
+            dots.forEach((dot, idx) => {
+                const theme = navThemes[idx] || navThemes[0];
+                dot.className = `step-dot w-3 h-3 rounded-full transition-all cursor-pointer ${
+                    idx === currentPage ? theme.dotActive : theme.dotInactive
+                }`;
+                dot.setAttribute('aria-current', idx === currentPage ? 'true' : 'false');
+            });
+
+            // Update Previous / Next button states (hide bottom controls on final Congratulations page)
+            const bottomControls = document.getElementById('bottom-nav-controls');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const isFinalPage = currentPage === TOTAL_PAGES - 1;
+
+            if (bottomControls) {
+                bottomControls.classList.toggle('hidden', isFinalPage);
+            }
+            if (prevBtn) {
+                prevBtn.disabled = currentPage <= 0 || isFinalPage;
+            }
+            if (nextBtn) {
+                nextBtn.disabled = currentPage >= TOTAL_PAGES - 1;
+            }
+
+            if (options.closeMobileMenu) {
+                closeMobileNavMenu();
+            }
+
+            // Play appropriate transition sound when navigating between pages
+            if (!options.skipClickSound && previousPage !== currentPage) {
+                try {
+                    if (isFinalPage) {
+                        playCelebrationFanfare();
+                    } else {
+                        playNavClickSound();
+                    }
+                } catch (soundErr) {
+                    console.warn('Navigation sound skipped:', soundErr);
+                }
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function startLearningJourney() {
+            try {
+                playSuccessChime();
+            } catch (err) {
+                console.warn('Start journey chime skipped:', err);
+            }
+            navigateTo(1, { skipClickSound: true });
+        }
+
+        function restartLearningJourney() {
+            try {
+                playRestartTransitionSound();
+            } catch (err) {
+                console.warn('Restart transition sound skipped:', err);
+            }
+            navigateTo(0, { skipClickSound: true });
+        }
+
+        function reloadScratchEmbed() {
+            try {
+                playNavClickSound();
+                const iframe = document.getElementById('scratch-game-iframe');
+                if (iframe) {
+                    const baseSrc = 'https://scratch.mit.edu/projects/1436306632/embed';
+                    iframe.src = '';
+                    iframe.src = baseSrc;
+                }
+            } catch (err) {
+                console.warn('Scratch embed reload skipped:', err);
+            }
+        }
+
+        // Initialize page state safely so rendering always succeeds even if audio is restricted
+        function initLearningApp() {
+            try {
+                loadAudioPreferences();
+                updateSoundUI();
+            } catch (audioErr) {
+                console.warn('Audio init skipped during render:', audioErr);
+            }
+
+            try {
+                navigateTo(0, { skipClickSound: true });
+            } catch (navErr) {
+                console.error('Initial render fallback:', navErr);
+                const homePage = document.getElementById('page-0');
+                if (homePage) homePage.classList.remove('hidden');
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            window.addEventListener('DOMContentLoaded', initLearningApp);
+        } else {
+            initLearningApp();
+        }
+    </script>
+</body>
+</html>
